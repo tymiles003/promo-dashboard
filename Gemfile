@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+# Twitter Bootstrap for scaffolding
+gem "twitter-bootstrap-rails"
+# Haml for templating
+gem "haml-rails", "~> 0.9"
+
 # Postgres for database
 gem 'pg', '0.18.2'
 

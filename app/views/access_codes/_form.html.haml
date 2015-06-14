@@ -1,0 +1,31 @@
+= form_for(@access_code) do |f|
+  - if @access_code.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@access_code.errors.count, "error")
+        prohibited this access_code from being saved:
+      %ul
+        - @access_code.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :user_id
+    %br/
+    = f.text_field :user_id
+  .field
+    = f.label :code
+    %br/
+    = f.text_field :code
+  .field
+    = f.label :invitee_name
+    %br/
+    = f.text_field :invitee_name
+  .field
+    = f.label :invitee_url
+    %br/
+    = f.text_field :invitee_url
+  .field
+    = f.label :invitee_info
+    %br/
+    = f.text_area :invitee_info
+  .actions
+    = f.submit

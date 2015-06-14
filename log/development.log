@@ -4,3 +4,90 @@ Started GET "/" for ::1 at 2015-06-13 16:03:11 -0700
 Processing by Rails::WelcomeController#index as HTML
   Rendered /Users/bsgreenb/.rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (6.1ms)
 Completed 200 OK in 46ms (Views: 28.5ms | ActiveRecord: 0.0ms)
+  [1m[36m (70.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateAccessCodes (20150614000105)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (7.1ms)[0m  [1mCREATE TABLE "access_codes" ("id" serial primary key, "user_id" integer, "code" character varying, "invitee_name" character varying, "invitee_url" character varying, "invitee_info" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (1.0ms)[0m  CREATE  INDEX  "index_access_codes_on_user_id" ON "access_codes"  ("user_id")
+  [1m[36m (2.9ms)[0m  [1mALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+PG::UndefinedTable: ERROR:  relation "users" does not exist
+: ALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateAccessCodes (20150614000105)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (43.5ms)[0m  [1mCREATE TABLE "access_codes" ("id" serial primary key, "user_id" integer, "code" character varying, "invitee_name" character varying, "invitee_url" character varying, "invitee_info" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX  "index_access_codes_on_user_id" ON "access_codes"  ("user_id")
+  [1m[36m (1.4ms)[0m  [1mALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+PG::UndefinedTable: ERROR:  relation "users" does not exist
+: ALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (173.4ms)[0m  [1mDROP DATABASE IF EXISTS "promo_dashboard_dev"[0m
+  [1m[35m (115.5ms)[0m  DROP DATABASE IF EXISTS "promo_dashboard_test"
+  [1m[36m (788.1ms)[0m  [1mCREATE DATABASE "promo_dashboard_dev" ENCODING = 'utf8'[0m
+  [1m[35m (247.6ms)[0m  CREATE DATABASE "promo_dashboard_test" ENCODING = 'utf8'
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.0ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateAccessCodes (20150614000105)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "access_codes" ("id" serial primary key, "user_id" integer, "code" character varying, "invitee_name" character varying, "invitee_url" character varying, "invitee_info" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX  "index_access_codes_on_user_id" ON "access_codes"  ("user_id")
+  [1m[36m (1.6ms)[0m  [1mALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+PG::UndefinedTable: ERROR:  relation "users" does not exist
+: ALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (3.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateAccessCodes (20150614000105)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "access_codes" ("id" serial primary key, "user_id" integer, "code" character varying, "invitee_name" character varying, "invitee_url" character varying, "invitee_info" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX  "index_access_codes_on_user_id" ON "access_codes"  ("user_id")
+  [1m[36m (1.4ms)[0m  [1mALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+PG::UndefinedTable: ERROR:  relation "users" does not exist
+: ALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateAccessCodes (20150614000105)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "access_codes" ("id" serial primary key, "user_id" integer, "code" character varying, "invitee_name" character varying, "invitee_url" character varying, "invitee_info" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.7ms)[0m  CREATE  INDEX  "index_access_codes_on_user_id" ON "access_codes"  ("user_id")
+  [1m[36m (1.4ms)[0m  [1mALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+PG::UndefinedTable: ERROR:  relation "users" does not exist
+: ALTER TABLE "access_codes" ADD CONSTRAINT "fk_rails_8bce74787b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+
+  [1m[35m (0.1ms)[0m  ROLLBACK

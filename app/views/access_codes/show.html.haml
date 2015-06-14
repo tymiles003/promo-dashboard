@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %strong User:
+  = @access_code.user
+%p
+  %strong Code:
+  = @access_code.code
+%p
+  %strong Invitee name:
+  = @access_code.invitee_name
+%p
+  %strong Invitee url:
+  = @access_code.invitee_url
+%p
+  %strong Invitee info:
+  = @access_code.invitee_info
+= link_to 'Edit', edit_access_code_path(@access_code)
+|
+= link_to 'Back', access_codes_path
