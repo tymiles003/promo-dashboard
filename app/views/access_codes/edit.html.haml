@@ -1,5 +1,4 @@
-%h1 Editing Access Code
-= render 'form'
-= link_to 'Show', @access_code
-|
-= link_to 'Back', access_codes_path
+- model_class = AccessCode
+.page-header
+  %h1=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+= render :partial => "form"

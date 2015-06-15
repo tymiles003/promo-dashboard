@@ -1,24 +1,29 @@
-%p#notice= notice
-%h1 Listing Access Codes
-%table
+- model_class = AccessCode
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+%table.table.table-striped
   %thead
     %tr
-      %th User
-      %th Code
-      %th Invitee name
-      %th Invitee url
-      %th Invitee info
-      %th{:colspan => "3"}
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:user_id)
+      %th= model_class.human_attribute_name(:code)
+      %th= model_class.human_attribute_name(:invitee_name)
+      %th= model_class.human_attribute_name(:invitee_url)
+      %th= model_class.human_attribute_name(:invitee_info)
+      %th= model_class.human_attribute_name(:created_at)
+      %th=t '.actions', :default => t("helpers.actions")
   %tbody
     - @access_codes.each do |access_code|
       %tr
-        %td= access_code.user
+        %td= link_to access_code.id, access_code_path(access_code)
+        %td= access_code.user_id
         %td= access_code.code
         %td= access_code.invitee_name
         %td= access_code.invitee_url
         %td= access_code.invitee_info
-        %td= link_to 'Show', access_code
-        %td= link_to 'Edit', edit_access_code_path(access_code)
-        %td= link_to 'Destroy', access_code, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Access code', new_access_code_path
+        %td=l access_code.created_at
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_access_code_path(access_code), :class => 'btn btn-default btn-xs'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), access_code_path(access_code), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+
+= link_to t('.new', :default => t("helpers.links.new")), new_access_code_path, :class => 'btn btn-primary'

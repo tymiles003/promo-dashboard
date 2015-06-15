@@ -1,31 +1,28 @@
-= form_for(@access_code) do |f|
-  - if @access_code.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@access_code.errors.count, "error")
-        prohibited this access_code from being saved:
-      %ul
-        - @access_code.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = f.label :user_id
-    %br/
-    = f.text_field :user_id
-  .field
-    = f.label :code
-    %br/
-    = f.text_field :code
-  .field
-    = f.label :invitee_name
-    %br/
-    = f.text_field :invitee_name
-  .field
-    = f.label :invitee_url
-    %br/
-    = f.text_field :invitee_url
-  .field
-    = f.label :invitee_info
-    %br/
-    = f.text_area :invitee_info
-  .actions
-    = f.submit
+= form_for @access_code, html: { class: "form form-horizontal access_code" } do |f|
+  .form-group
+    = f.label :user_id, class: 'control-label'
+    .controls
+      = f.text_field :user_id, class: 'form-control', required: true
+    = error_span(@access_code[:user_id])
+  .form-group
+    = f.label :code, class: 'control-label'
+    .controls
+      = f.text_field :code, class: 'form-control', required: true
+    = error_span(@access_code[:code])
+  .form-group
+    = f.label :invitee_name, class: 'control-label'
+    .controls
+      = f.text_field :invitee_name, class: 'form-control', required: true
+    = error_span(@access_code[:invitee_name])
+  .form-group
+    = f.label :invitee_url, class: 'control-label'
+    .controls
+      = f.text_field :invitee_url, class: 'form-control', required: true
+    = error_span(@access_code[:invitee_url])
+  .form-group
+    = f.label :invitee_info, class: 'control-label'
+    .controls
+      = f.text_field :invitee_info, class: 'form-control', required: true
+    = error_span(@access_code[:invitee_info])
+  = f.submit nil,class: 'btn btn-primary'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), access_codes_path, :class => 'btn btn-default'
