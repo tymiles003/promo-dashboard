@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# EventBrite API v3 from https://github.com/envoy/eventbrite
+gem 'eventbrite'
+
 # Twitter Bootstrap for scaffolding
 gem "twitter-bootstrap-rails"
 # Haml for templating
