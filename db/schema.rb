@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614003449) do
+ActiveRecord::Schema.define(version: 20150616230123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20150614003449) do
 
   add_index "access_codes", ["user_id"], name: "index_access_codes_on_user_id", using: :btree
 
+  create_table "attendees", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.integer  "access_code_id"
+    t.datetime "ordered_art"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "attendees", ["access_code_id"], name: "index_attendees_on_access_code_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "password"
@@ -37,4 +48,5 @@ ActiveRecord::Schema.define(version: 20150614003449) do
   end
 
   add_foreign_key "access_codes", "users"
+  add_foreign_key "attendees", "access_codes"
 end
