@@ -1,37 +1,57 @@
-class EventbriteAPI
+  class EventbriteAPI
 
+    def initialize
+      @event_id = 16113455780
+      Eventbrite.token = Rails.application.secrets.eventbrite_personal_oauth_token
+    end
 
-  def initialize
-    @event_id = 17269742264
-    Eventbrite.token = Rails.application.secrets.eventbrite_personal_oauth_token
-  end
+    #QSTN about eventbrite models, difference between attendee and order, etc.
+    '''
+    Takes a list of access codes and returns dictionary of Attendees who used them.
+    '''
+    def get_attendees_for_access_codes(access_codes)
+      # Initialize return dictionary with access codes as keys
+      attendees_for_access_codes = {}
+      access_codes.each do |user_access_code|
+        attendees_for_access_codes[user_access_code.downcase] = []
+      end
 
-  #QSTN about eventbrite models, difference between attendee and order, etc.
+      all_attendees = get_all_attendees
+
+      all_attendees.each do |attendee|
+        print attendee.promotional_code
+        if attendee.promotional_code and attendee.promotional_code.promotion_type == 'access'
+          attendee_access_code = attendee.promotional_code.promotion.downcase
+          if access_codes.include? attendee_access_code
+            attendees_for_access_codes[attendee_access_code].append(attendee)
+          end
+        end
+      end
+
+      attendees_for_access_codes
+    end
+
   '''
-  Takes a list of access codes and returns dictionary of Attendees who used them.
+  Returns all attendees
   '''
-  def get_attendees(user_access_codes)
-    attendees = Eventbrite::Attendee.all({ event_id: event_id , expand: 'promotional_code'})
+  def get_all_attendees()
+    attendees = Eventbrite::Attendee.all({ event_id: @event_id , expand: 'promotional_code'})
 
     # If it's paginated then we want to append all those attendees
     all_attendees = attendees.attendees
     if attendees.paginated?
+      threads = []
+      print attendees.page_count
       while attendees.next?
-        attendees = Eventbrite::Attendee.all({ page: attendees.next_page, event_id: event_id , expand: 'promotional_code'}).attendees
-        all_attendees.concat(attendees)
+        threads << Thread.new do
+          attendees = Eventbrite::Attendee.all({ page: attendees.next_page, event_id: @event_id, expand: 'promotional_code'})
+        end
+
+        all_attendees.concat(attendees.attendees)
       end
     end
 
-    user_attendees = {}
-    user_access_codes.each do |user_access_code|
-      user_attendees[user_access_code] = []
-    end
-
-    all_attendees.each do |attendee|
-      if user_access_codes.include? attendee.promotional_code
-        user_attendees[attendee.promotional_code].concat()
-      end
-    end
+    all_attendees
   end
 
 
