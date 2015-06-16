@@ -4,26 +4,26 @@
 %table.table.table-striped
   %thead
     %tr
-      %th= model_class.human_attribute_name(:id)
-      %th= model_class.human_attribute_name(:user_id)
-      %th= model_class.human_attribute_name(:code)
-      %th= model_class.human_attribute_name(:invitee_name)
-      %th= model_class.human_attribute_name(:invitee_url)
-      %th= model_class.human_attribute_name(:invitee_info)
-      %th= model_class.human_attribute_name(:created_at)
-      %th=t '.actions', :default => t("helpers.actions")
+      %th Access Code
+      %th Invitee Info
+      %th Order Info
   %tbody
     - @access_codes.each do |access_code|
       %tr
-        %td= link_to access_code.id, access_code_path(access_code)
-        %td= access_code.user_id
         %td= access_code.code
-        %td= access_code.invitee_name
-        %td= access_code.invitee_url
-        %td= access_code.invitee_info
-        %td=l access_code.created_at
         %td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_access_code_path(access_code), :class => 'btn btn-default btn-xs'
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), access_code_path(access_code), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+          For #{access_code.invitee_name}
+          who is #{access_code.invitee_info}
+          =link_to access_code.invitee_url, url_with_protocol(access_code.invitee_url), :target => '_blank'
+        %td [No order yet]
 
-= link_to t('.new', :default => t("helpers.links.new")), new_access_code_path, :class => 'btn btn-primary'
+%form.form-inline
+  .form-group
+    %input.form-control(placeholder="Access Code")
+  .form-group
+    %input.form-control(placeholder="Invitee Full Name")
+  .form-group
+    %input.form-control(placeholder="Invitee URL")
+  .form-group
+    %input.form-control(placeholder="Additional Invitee Info")
+  %button.btn.btn-primary Create Code
