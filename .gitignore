@@ -1,4 +1,4 @@
 log/*
 .idea/
 tmp/
-
+config/database.yml
