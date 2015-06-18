@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.3'
+
 # EventBrite API v3 from https://github.com/envoy/eventbrite
 gem 'eventbrite'
 
@@ -52,3 +54,6 @@ group :development, :test do
   gem 'spring'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
