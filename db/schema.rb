@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616230123) do
+ActiveRecord::Schema.define(version: 20150618181337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150616230123) do
     t.string   "name"
     t.string   "email"
     t.integer  "access_code_id"
-    t.datetime "ordered_art"
+    t.datetime "ordered_at"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end

@@ -101,7 +101,6 @@ module AttendeeHelper
       else
         logger.info 'Skipping attendee who didn\'t use an access code'
       end
-      #QSTN: what should we be syncing here?
     end
   end
 
