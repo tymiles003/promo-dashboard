@@ -14,7 +14,6 @@ class WebHooksController < ApplicationController
   }
   '''
   def eventbrite
-
     api_url = params[:api_url]
     order_match = /https:\/\/www\.eventbriteapi\.com\/v\d+\/orders\/(\d+)\/?/i.match(api_url)
     if order_match
