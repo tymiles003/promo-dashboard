@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Figaro configuration management
+gem "figaro"
+
 # EventBrite API v3 from https://github.com/envoy/eventbrite
 gem 'eventbrite', :git => 'git://github.com/bsgreenb/eventbrite'
 
