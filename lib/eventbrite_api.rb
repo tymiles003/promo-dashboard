@@ -16,7 +16,7 @@ class EventbriteAPI
     if order
       order.attendees.each do |attendee|
         attendee_id = attendee.id
-        attendee = Eventbrite::Attendee.retrieve(@event_id, attendee_id)
+        attendee = Eventbrite::Attendee.retrieve(@event_id, id: attendee_id, 'promotional_code')
         if attendee
           order_attendees.push(attendee)
         else
