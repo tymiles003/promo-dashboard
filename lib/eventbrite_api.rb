@@ -3,6 +3,7 @@ class EventbriteAPI
   def initialize
     @event_id = ENV['event_id']
     @ticket_class_ids = ENV['ticket_class_ids']
+    @uses_per_access_code = ENV['uses_per_access_code']
   end
 
   '''
