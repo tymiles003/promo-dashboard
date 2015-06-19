@@ -1,8 +1,8 @@
 class EventbriteAPI
 
   def initialize
-    @event_id = 16113455780
-    Eventbrite.token = Rails.application.secrets.eventbrite_personal_oauth_token
+    @event_id = ENV['event_id']
+    @ticket_class_ids = ENV['ticket_class_ids']
   end
 
   '''
