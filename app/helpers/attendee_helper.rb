@@ -75,7 +75,7 @@ module AttendeeHelper
     }
   }
   '''
-  def sync_attendees(eventbrite_attendees)
+  def self.sync_attendees(eventbrite_attendees)
     eventbrite_attendees.each do |eventbrite_attendee|
       if eventbrite_attendee.promotional_code and eventbrite_attendee.promotional_code.promotion_type == 'access'
         eventbrite_attendee_id = eventbrite_attendee.id
