@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/bsgreenb/eventbrite
+  revision: e25b48a6351859acb4d893739b461987d5e4cfcc
+  specs:
+    eventbrite (0.0.1)
+      hashie (~> 3.0)
+      rest-client (~> 1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -54,10 +62,9 @@ GEM
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
-    eventbrite (0.0.1)
-      hashie (~> 3.0)
-      rest-client (~> 1.4)
     execjs (2.5.2)
+    figaro (1.1.1)
+      thor (~> 0.14)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     haml (4.0.6)
@@ -180,7 +187,8 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
-  eventbrite
+  eventbrite!
+  figaro
   haml-rails (~> 0.9)
   jbuilder (~> 2.0)
   jquery-rails
