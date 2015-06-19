@@ -24,6 +24,17 @@ class AccessCodesController < ApplicationController
   # POST /access_codes
   # POST /access_codes.json
   def create
+    #TODO: use eventbrite_api function for this, with error handling here.
+    #TODO: send API request
+    #TODO: handle fails
+      # END_IN_PAST
+      # END_TOO_LATE
+      # INVALID_TICKET_IDS
+      # START_AFTER_END
+      # START_IN_PAST
+      # START_TOO_LATE
+    #TODO: use access_coes_helper to actually sync the access code upon creation
+    #TODO: Return response to spec
     @access_code = AccessCode.new(access_code_params)
 
     respond_to do |format|
