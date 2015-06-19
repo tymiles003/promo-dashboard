@@ -88,7 +88,8 @@ module AttendeeHelper
           access_code = AccessCode.where('code' => code).first
           if access_code
             new_attendee = Attendee.new
-            new_attendee.access_code_id = attendee.id
+
+            new_attendee.access_code_id = access_code.id
             new_attendee.eventbrite_attendee_id = eventbrite_attendee_id
             new_attendee.name = eventbrite_attendee.profile.name
             new_attendee.email = eventbrite_attendee.profile.email
