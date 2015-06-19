@@ -80,6 +80,6 @@ class AccessCodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def access_code_params
-      params.require(:access_code).permit(:user_id, :code, :invitee_name, :invitee_url, :invitee_info)
+      params.require(:access_code).permit(:user_id, :code)
     end
 end
