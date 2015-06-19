@@ -9,7 +9,7 @@ module AccessCodesHelper
   def self.create_and_sync_access_code(access_code, user_id)
 
     existing_access_code = AccessCode.where(code: access_code)
-    if existing_access_code
+    if existing_access_code.first
       Rails.logger.warn 'Access code %s already exists' % access_code
       return existing_access_code.first
     else
