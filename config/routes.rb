@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'web_hooks/eventbrite'
+  post 'web_hooks/eventbrite' => 'web_hooks#eventbrite'
 
   resources :access_codes
   # The priority is based upon order of creation: first created -> highest priority.
