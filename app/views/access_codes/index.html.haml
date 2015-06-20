@@ -1,23 +1,53 @@
 - model_class = AccessCode
-.page-header
-  %h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
-%table.table.table-striped
-  %thead
-    %tr
-      %th= model_class.human_attribute_name(:id)
-      %th= model_class.human_attribute_name(:user_id)
-      %th= model_class.human_attribute_name(:code)
-      %th= model_class.human_attribute_name(:created_at)
-      %th=t '.actions', :default => t("helpers.actions")
-  %tbody
-    - @access_codes.each do |access_code|
-      %tr
-        %td= link_to access_code.id, access_code_path(access_code)
-        %td= access_code.user_id
-        %td= access_code.code
-        %td=l access_code.created_at
-        %td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_access_code_path(access_code), :class => 'btn btn-default btn-xs'
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), access_code_path(access_code), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
 
-= link_to t('.new', :default => t("helpers.links.new")), new_access_code_path, :class => 'btn btn-primary'
+.container
+  %h1=t '.title', :default =>'Access Codes Dashboard for TOO BIG'
+  %p
+    Instructions be going here. Blah blah blah.
+    %a{href: @eventbrite_event_url, target: '_new'}= @eventbrite_event_url
+  %h2=t '.title', :default => 'Your Access Codes'
+
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Access Code
+        %th Invite Link
+        %th Code Created At
+        %th Attendees
+    - num_codes_created = @access_codes.length
+    - if num_codes_created > 0
+      %tbody
+      - codes_used = 0
+      - @access_codes.each do |access_code|
+        %tr
+          %td= access_code.code
+          %td
+            - eventbrite_event_url = @eventbrite_event_url + '?access=' + access_code.code
+            %a{href: eventbrite_event_url, target: '_new'}
+              = eventbrite_event_url
+          %td= access_code.created_at.strftime("%D %I:%M%p")
+          %td
+            - if access_code.attendees
+              - codes_used += 1
+              - access_code.attendees.each do |attendee|
+                = attendee.name + ' (' + attendee.email + ') ordered at ' + attendee.ordered_at.strftime("%D %I:%M%p")
+                %br
+            - else
+              No Attendees have ordered with this access code yet.
+  %p
+  - if num_codes_created > 0
+    - percent = codes_used.to_i / num_codes_created.to_i * 100
+    %strong= codes_used
+    of your
+    %strong= @access_codes.length
+    access codes have been used to invite attendees
+    .progress{:style => "width: 25%;"}
+      .progress-bar{"aria-valuemax" => num_codes_created,
+                    "aria-valuemin" => "0",
+                    "aria-valuenow" => codes_used,
+                    :role => "progressbar",
+                    :style => 'width: ' + percent.to_s + '%;'}
+        %span.sr-only
+  - else
+    You haven't created any access codes yet.
+  = render :partial => 'new', :locals => {num_codes_created: num_codes_created}

@@ -4,17 +4,18 @@ class AccessCodesController < ApplicationController
   # GET /access_codes
   # GET /access_codes.json
   def index
-    @access_codes = AccessCode.all
+    #TODO: use auth here and elsewhere
+    @user = User.find(1)
+    @code_allowance = @user.code_allowance
+    @access_codes = AccessCode.where(user_id: @user.id)
+    @access_code = AccessCode.new
+    @eventbrite_event_url = ENV['eventbrite_event_url']
+
   end
 
   # GET /access_codes/1
   # GET /access_codes/1.json
   def show
-  end
-
-  # GET /access_codes/new
-  def new
-    @access_code = AccessCode.new
   end
 
   # GET /access_codes/1/edit
