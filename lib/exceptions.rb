@@ -5,4 +5,5 @@ module Exceptions
   class CodeTooShortError < CreateCodeError; end
   class CodeTooLongError < CreateCodeError; end
   class EventbriteCodeCreationError < CreateCodeError; end
+  class PastCodeAllowance < CreateCodeError; end
 end

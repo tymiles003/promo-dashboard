@@ -31,26 +31,32 @@ class AccessCodesController < ApplicationController
     code = access_code_params[:code].downcase
     # TODO: use auth to determine the ID we're creating this for.
     user_id = 1
+    user = User.find(user_id)
+    current_access_codes_count = user.access_codes.count
+    access_code_allowance = user.code_allowance
 
-    begin
-      AccessCodesHelper.create_and_sync_access_code(code, user_id)
-      flash[:success] = 'Successfully created access code %s' % access_code_params[:code]
-    rescue Exceptions::InvalidCodeCharacters
-      flash[:error] = "Spaces, apostrophes and non-alphanumeric characters (except '-', '_', '@' and '.') are not allowed in access codes."
-    rescue Exceptions::CodeTooShortError
-      flash[:error] = "The code you entered is too short."
-    rescue Exceptions::CodeTooLongError
-      flash[:error] = "The code you entered has already been taken"
-    rescue Exceptions::CodeAlreadyCreatedError
-      flash[:error] = 'The code you entered is unavailable because it\'s already been created.'
-    rescue Exceptions::EventbriteCodeCreationError => ex
-      flash[:error] = 'There was a problem creating this code on eventbrite: %s' % ex.message
-    rescue Exception => ex
-      flash[:error] = 'Unexpected error: %s' % ex.message
+    if current_access_codes_count >= access_code_allowance
+      flash[:error] = 'You\'re past your access code allowance of %s.  Contact Ben or Andrew for another code.' % access_code_allowance
+    else
+      begin
+        AccessCodesHelper.create_and_sync_access_code(code, user_id)
+        flash[:success] = 'Successfully created access code %s' % access_code_params[:code]
+      rescue Exceptions::InvalidCodeCharacters
+        flash[:error] = "Spaces, apostrophes and non-alphanumeric characters (except '-', '_', '@' and '.') are not allowed in access codes."
+      rescue Exceptions::CodeTooShortError
+        flash[:error] = "The code you entered is too short."
+      rescue Exceptions::CodeTooLongError
+        flash[:error] = "The code you entered has already been taken"
+      rescue Exceptions::CodeAlreadyCreatedError
+        flash[:error] = 'The code you entered is unavailable because it\'s already been created.'
+      rescue Exceptions::EventbriteCodeCreationError => ex
+        flash[:error] = 'There was a problem creating this code on eventbrite: %s' % ex.message
+      rescue Exception => ex
+        flash[:error] = 'Unexpected error: %s' % ex.message
+      end
     end
 
-    redirect_to action: 'index'
-
+    redirect_to root_path
   end
 
   # PATCH/PUT /access_codes/1
