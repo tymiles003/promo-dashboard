@@ -1,5 +1,5 @@
 = form_for @access_code, html: { class: "form-inline access_code" } do |f|
   .form-group
-    = f.text_field :code, class: 'form-control', required: true, placeholder: 'e.g. YOURSECRETCODE'
+    = f.text_field :code, class: 'form-control', required: true, placeholder: 'e.g. yoursecretcode'
     = error_span(@access_code[:code])
   = f.submit nil,class: 'btn btn-primary'
