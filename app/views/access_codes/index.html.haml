@@ -5,16 +5,17 @@
   %p
     Instructions be going here. Blah blah blah.
     %a{href: @eventbrite_event_url, target: '_new'}= @eventbrite_event_url
-  %h2=t '.title', :default => 'Your Access Codes'
-
-  %table.table.table-striped
+  %hr
+  - num_codes_created = @access_codes.length
+  = render :partial => 'new', :locals => {num_codes_created: num_codes_created}
+  %br
+  %table.table.table-striped.table-bordered
     %thead
       %tr
         %th Access Code
         %th Invite Link
         %th Code Created At
         %th Attendees
-    - num_codes_created = @access_codes.length
     - if num_codes_created > 0
       %tbody
       - codes_used = 0
@@ -50,4 +51,3 @@
         %span.sr-only
   - else
     You haven't created any access codes yet.
-  = render :partial => 'new', :locals => {num_codes_created: num_codes_created}

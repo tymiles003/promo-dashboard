@@ -1,18 +1,8 @@
 - model_class = AccessCode
-.page-header
-  %h2=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize
 %p
   You've created
   %strong= num_codes_created.to_s
   access codes out of your
   %strong= @code_allowance
   code allowance.  Need a higher code allowance? Ask Ben or Andrew
-- percent = (num_codes_created.to_f  / @code_allowance) * 100
-.progress{:style => "width: 25%;"}
-  .progress-bar{"aria-valuemax" => @code_allowance,
-                "aria-valuemin" => "0",
-                "aria-valuenow" => num_codes_created,
-                :role => "progressbar",
-                :style => 'width: ' + percent.to_s + '%;'}
-    %span.sr-only
 = render :partial => "form"

@@ -25,6 +25,15 @@ class AccessCodesController < ApplicationController
   # POST /access_codes
   # POST /access_codes.json
   def create
+    #FUTURE: set this up as ajax
+    #TODO: use auth to determine the ID we're creating this for.
+    user_id = 1
+
+    #QSTN: how are we communicating success or fail?  Using a flash?
+    #QSTN: How are we handling pre-existing code?
+    #QSTN: are we doing JS validation.
+
+    new_access_code = AccessCodesHelper.create_and_sync_access_code(access_codes_params[:code], user_id)
     #TODO: use eventbrite_api function for this, with error handling here.
     #TODO: send API request
     #TODO: handle fails
