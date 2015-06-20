@@ -7,7 +7,8 @@ module AttendeeHelper
     eventbrite_attendees.each do |eventbrite_attendee|
       if eventbrite_attendee.promotional_code and eventbrite_attendee.promotional_code.promotion_type == 'access'
         eventbrite_attendee_id = eventbrite_attendee.id
-        code = eventbrite_attendee.promotional_code.code
+        # consistently do downcase
+        code = eventbrite_attendee.promotional_code.code.downcase
 
         attendee = Attendee.where('eventbrite_attendee_id' => eventbrite_attendee_id).first
         if attendee

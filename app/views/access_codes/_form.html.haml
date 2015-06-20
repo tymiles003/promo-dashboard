@@ -3,3 +3,13 @@
     = f.text_field :code, class: 'form-control', required: true, placeholder: 'e.g. yoursecretcode'
     = error_span(@access_code[:code])
   = f.submit nil,class: 'btn btn-primary'
+  - if flash[:error]
+    .alert.alert-danger
+      %span.sr-only
+      Error:
+      = flash[:error]
+  - elsif flash[:success]
+    .alert.alert-success
+      %span.sr-only
+      = flash[:success]
+

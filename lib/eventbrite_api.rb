@@ -44,8 +44,12 @@ class EventbriteAPI
             'access_code.ticket_ids': @ticket_class_ids,
             'access_code.quantity_available': @uses_per_access_code
     }
-    eventbrite_response = agent.post(Eventbrite.api_url(endpoint), post_query, headers)
-    JSON.parse(eventbrite_response.body)
+    begin
+      eventbrite_response = agent.post(Eventbrite.api_url(endpoint), post_query, headers)
+      JSON.parse(eventbrite_response.body)
+    rescue Exception => e
+      raise Exceptions::EventbriteCodeCreationError(e.message)
+    end
   end
 
 

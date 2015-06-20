@@ -42,12 +42,5 @@
     of your
     %strong= @access_codes.length
     access codes have been used to invite attendees
-    .progress{:style => "width: 25%;"}
-      .progress-bar{"aria-valuemax" => num_codes_created,
-                    "aria-valuemin" => "0",
-                    "aria-valuenow" => codes_used,
-                    :role => "progressbar",
-                    :style => 'width: ' + percent.to_s + '%;'}
-        %span.sr-only
   - else
     You haven't created any access codes yet.
