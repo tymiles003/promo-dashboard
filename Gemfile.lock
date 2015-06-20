@@ -1,11 +1,3 @@
-GIT
-  remote: git://github.com/bsgreenb/eventbrite
-  revision: e25b48a6351859acb4d893739b461987d5e4cfcc
-  specs:
-    eventbrite (0.0.1)
-      hashie (~> 3.0)
-      rest-client (~> 1.4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -62,6 +54,9 @@ GEM
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
+    eventbrite (0.0.1)
+      hashie (~> 3.0)
+      rest-client (~> 1.4)
     execjs (2.5.2)
     figaro (1.1.1)
       thor (~> 0.14)
@@ -96,13 +91,25 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mechanize (2.7.3)
+      domain_name (~> 0.5, >= 0.5.1)
+      http-cookie (~> 1.0)
+      mime-types (~> 2.0)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.5, >= 2.5.2)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (>= 0.0.9, < 0.2)
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.7.0)
     multi_json (1.11.1)
+    net-http-digest_auth (1.4)
+    net-http-persistent (2.9.4)
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    ntlm-http (0.1.1)
     pg (0.18.2)
     rack (1.6.1)
     rack-test (0.6.3)
@@ -180,6 +187,7 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    webrobots (0.1.1)
 
 PLATFORMS
   ruby
@@ -187,11 +195,12 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
-  eventbrite!
+  eventbrite
   figaro
   haml-rails (~> 0.9)
   jbuilder (~> 2.0)
   jquery-rails
+  mechanize
   pg (= 0.18.2)
   rails (= 4.2.1)
   sass-rails (~> 5.0)

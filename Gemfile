@@ -4,7 +4,10 @@ source 'https://rubygems.org'
 gem "figaro"
 
 # EventBrite API v3 from https://github.com/envoy/eventbrite
-gem 'eventbrite', :git => 'git://github.com/bsgreenb/eventbrite'
+gem 'eventbrite'
+
+# Mechanize for API requests outside the eventbrite gem.  (Currently it doesn't do POST)
+gem 'mechanize'
 
 # Twitter Bootstrap for scaffolding
 gem "twitter-bootstrap-rails"

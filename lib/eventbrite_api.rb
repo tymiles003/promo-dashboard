@@ -1,8 +1,9 @@
 class EventbriteAPI
 
   def initialize
-    @event_id = 16113455780
-    Eventbrite.token = Rails.application.secrets.eventbrite_personal_oauth_token
+    @event_id = ENV['event_id']
+    @ticket_class_ids = ENV['ticket_class_ids']
+    @uses_per_access_code = ENV['uses_per_access_code']
   end
 
   '''
@@ -16,7 +17,7 @@ class EventbriteAPI
     if order
       order.attendees.each do |attendee|
         attendee_id = attendee.id
-        attendee = Eventbrite::Attendee.retrieve(@event_id, attendee_id)
+        attendee = Eventbrite::Attendee.retrieve(@event_id, id: attendee_id, expand: 'promotional_code')
         if attendee
           order_attendees.push(attendee)
         else
@@ -30,8 +31,21 @@ class EventbriteAPI
     order_attendees
   end
 
+  '''
+  Creates an access_code on Eventbrite.
+  Returns the created access code, otherwise raises the error.
+  '''
   def create_access_code(access_code)
-    #TODO write this
+    agent = Mechanize.new
+    headers = {'Authorization' => 'Bearer ' + ENV['eventbrite_personal_oauth_token']}
+    endpoint = '/events/%s/access_codes/' % @event_id
+    post_query = {
+            'access_code.code': access_code,
+            'access_code.ticket_ids': @ticket_class_ids,
+            'access_code.quantity_available': @uses_per_access_code
+    }
+    eventbrite_response = agent.post(Eventbrite.api_url(endpoint), post_query, headers)
+    JSON.parse(eventbrite_response.body)
   end
 
 

@@ -3,13 +3,7 @@
 one:
   user_id: 
   code: MyString
-  invitee_name: MyString
-  invitee_url: MyString
-  invitee_info: MyText
 
 two:
   user_id: 
   code: MyString
-  invitee_name: MyString
-  invitee_url: MyString
-  invitee_info: MyText

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618182237) do
+ActiveRecord::Schema.define(version: 20150619223937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,14 +19,13 @@ ActiveRecord::Schema.define(version: 20150618182237) do
   create_table "access_codes", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "code"
-    t.string   "invitee_name"
-    t.string   "invitee_url"
-    t.text     "invitee_info"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "eventbrite_access_code_id"
   end
 
   add_index "access_codes", ["code"], name: "index_access_codes_on_code", unique: true, using: :btree
+  add_index "access_codes", ["eventbrite_access_code_id"], name: "index_access_codes_on_eventbrite_access_code_id", unique: true, using: :btree
   add_index "access_codes", ["user_id"], name: "index_access_codes_on_user_id", using: :btree
 
   create_table "attendees", force: :cascade do |t|

@@ -1,0 +1,1 @@
+Eventbrite.token = ENV['eventbrite_personal_oauth_token']

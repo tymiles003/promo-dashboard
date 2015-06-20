@@ -3,7 +3,7 @@ module AttendeeHelper
   '''
   Takes an array of eventbrite_attendees and syncs to database.
   '''
-  def sync_attendees(eventbrite_attendees)
+  def self.sync_attendees(eventbrite_attendees)
     eventbrite_attendees.each do |eventbrite_attendee|
       if eventbrite_attendee.promotional_code and eventbrite_attendee.promotional_code.promotion_type == 'access'
         eventbrite_attendee_id = eventbrite_attendee.id
@@ -16,7 +16,8 @@ module AttendeeHelper
           access_code = AccessCode.where('code' => code).first
           if access_code
             new_attendee = Attendee.new
-            new_attendee.access_code_id = attendee.id
+
+            new_attendee.access_code_id = access_code.id
             new_attendee.eventbrite_attendee_id = eventbrite_attendee_id
             new_attendee.name = eventbrite_attendee.profile.name
             new_attendee.email = eventbrite_attendee.profile.email

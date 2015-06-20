@@ -1,28 +1,5 @@
-= form_for @access_code, html: { class: "form form-horizontal access_code" } do |f|
+= form_for @access_code, html: { class: "form-inline access_code" } do |f|
   .form-group
-    = f.label :user_id, class: 'control-label'
-    .controls
-      = f.text_field :user_id, class: 'form-control', required: true
-    = error_span(@access_code[:user_id])
-  .form-group
-    = f.label :code, class: 'control-label'
-    .controls
-      = f.text_field :code, class: 'form-control', required: true
+    = f.text_field :code, class: 'form-control', required: true, placeholder: 'e.g. yoursecretcode'
     = error_span(@access_code[:code])
-  .form-group
-    = f.label :invitee_name, class: 'control-label'
-    .controls
-      = f.text_field :invitee_name, class: 'form-control', required: true
-    = error_span(@access_code[:invitee_name])
-  .form-group
-    = f.label :invitee_url, class: 'control-label'
-    .controls
-      = f.text_field :invitee_url, class: 'form-control', required: true
-    = error_span(@access_code[:invitee_url])
-  .form-group
-    = f.label :invitee_info, class: 'control-label'
-    .controls
-      = f.text_field :invitee_info, class: 'form-control', required: true
-    = error_span(@access_code[:invitee_info])
   = f.submit nil,class: 'btn btn-primary'
-  = link_to t('.cancel', :default => t("helpers.links.cancel")), access_codes_path, :class => 'btn btn-default'
