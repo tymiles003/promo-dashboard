@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Authentication and the like
+gem 'devise'
+
 # Figaro configuration management
 gem "figaro"
 
