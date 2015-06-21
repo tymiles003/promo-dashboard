@@ -6,3 +6,6 @@ tmp/
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore DB configuration
+/config/database.yml
