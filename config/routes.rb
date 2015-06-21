@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   post 'web_hooks/eventbrite' => 'web_hooks#eventbrite'
 
   resources :access_codes
