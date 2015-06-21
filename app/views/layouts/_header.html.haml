@@ -1,0 +1,23 @@
+%nav.navbar.navbar-default#my-nav
+  .container
+    .navbar-header
+      %a.navbar-brand{href: '/'}
+        TOO BIG Promo Dashboard
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        -if user_signed_in?
+          %li
+            %p.navbar-text
+              Logged in as
+              = current_user.email
+          %li
+
+            = link_to('Logout', destroy_user_session_path, :method => :delete)
+.container
+  -if notice
+    %div.alert.alert-info
+      =notice
+  -if alert
+    %div.alert.alert-danger
+      =alert
+  = yield

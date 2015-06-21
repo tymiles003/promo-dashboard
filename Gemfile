@@ -4,6 +4,8 @@ ruby '2.2.1'
 
 # Authentication and the like
 gem 'devise'
+# Seems to use formtastic
+gem 'formtastic'
 
 # Figaro configuration management
 gem "figaro"

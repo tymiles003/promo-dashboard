@@ -1,11 +1,13 @@
 class AccessCodesController < ApplicationController
   before_action :set_access_code, only: [:show, :edit, :update, :destroy]
 
+  before_action :authenticate_user!
+
   # GET /access_codes
   # GET /access_codes.json
   def index
     #TODO: use auth here and elsewhere
-    @user = User.find(1)
+    @user = current_user
     @code_allowance = @user.code_allowance
     @access_codes = AccessCode.where(user_id: @user.id)
     @access_code = AccessCode.new
@@ -29,8 +31,7 @@ class AccessCodesController < ApplicationController
 
     # Simplifies things to only take in lowercase codes
     code = access_code_params[:code].downcase
-    # TODO: use auth to determine the ID we're creating this for.
-    user_id = 1
+    user_id = current_user.id
     user = User.find(user_id)
     current_access_codes_count = user.access_codes.count
     access_code_allowance = user.code_allowance

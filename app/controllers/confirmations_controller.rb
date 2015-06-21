@@ -22,24 +22,39 @@ class ConfirmationsController < Devise::ConfirmationsController
     end
 
     if !@confirmable.errors.empty?
-      render 'devise/confirmations/new' #Change this if you don't have the views on default path
+      render 'users/confirmations/new' #Change this if you don't have the views on default path
+    end
+  end
+
+  def confirm
+    @original_token = params[resource_name].try(:[], :confirmation_token)
+    digested_token = Devise.token_generator.digest(self, :confirmation_token, @original_token)
+    self.resource = resource_class.find_by_confirmation_token! digested_token
+    resource.assign_attributes(permitted_params) unless params[resource_name].nil?
+
+    if resource.valid? && resource.password_match?
+      self.resource.confirm!
+      set_flash_message :notice, :confirmed
+      sign_in_and_redirect resource_name, resource
+    else
+      render :action => 'show'
     end
   end
 
   # GET /resource/confirmation?confirmation_token=abcdef
   def show
-    with_unconfirmed_confirmable do
-      if @confirmable.has_no_password?
-        do_show
-      else
-        do_confirm
-      end
+    if params[:confirmation_token].present?
+      @original_token = params[:confirmation_token]
+    elsif params[resource_name].try(:[], :confirmation_token).present?
+      @original_token = params[resource_name][:confirmation_token]
     end
-    if !@confirmable.errors.empty?
-      self.resource = @confirmable
-      render 'devise/confirmations/new' #Change this if you don't have the views on default path
-    end
+
+    self.resource = resource_class.find_by_confirmation_token Devise.token_generator.
+                                                                  digest(self, :confirmation_token, @original_token)
+
+    super if resource.nil? or resource.confirmed?
   end
+
 
   protected
 
@@ -56,7 +71,7 @@ class ConfirmationsController < Devise::ConfirmationsController
     @confirmation_token = params[:confirmation_token]
     @requires_password = true
     self.resource = @confirmable
-    render 'devise/confirmations/show' #Change this if you don't have the views on default path
+    render 'users/confirmations/show' #Change this if you don't have the views on default path
   end
 
   def do_confirm
@@ -64,4 +79,9 @@ class ConfirmationsController < Devise::ConfirmationsController
     set_flash_message :notice, :confirmed
     sign_in_and_redirect(resource_name, @confirmable)
   end
+
+  private
+    def permitted_params
+      params.require(resource_name).permit(:confirmation_token, :password, :password_confirmation)
+    end
 end

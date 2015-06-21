@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
-  devise_for :users, :path => '', :path_names => {:sign_in => 'login'}
+
+  devise_for :users, :controllers => {:confirmations => 'confirmations'}
+
+  devise_scope :user do
+    patch "/confirm" => "confirmations#confirm"
+  end
+
+  as :user do
+    patch '/confirmation' => 'confirmations#update', :via => :patch, :as => :update_user_confirmation
+  end
 
   post 'web_hooks/eventbrite' => 'web_hooks#eventbrite'
 
   resources :access_codes
+  authenticate :user do
+    resources :access_codes
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
