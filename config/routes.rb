@@ -3,12 +3,9 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:confirmations => 'confirmations'}
 
   devise_scope :user do
-    patch "/confirm" => "confirmations#confirm"
+    patch "/confirm" => "confirmations#confirm", :as => :confirm_user
   end
 
-  as :user do
-    patch '/confirmation' => 'confirmations#update', :via => :patch, :as => :update_user_confirmation
-  end
 
   post 'web_hooks/eventbrite' => 'web_hooks#eventbrite'
 

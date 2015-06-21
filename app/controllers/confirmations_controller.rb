@@ -5,8 +5,14 @@ class ConfirmationsController < Devise::ConfirmationsController
   skip_before_filter :require_no_authentication
   skip_before_filter :authenticate_user!
 
+  def new
+    self.resource = resource_class.new
+  end
+
   # PUT /resource/confirmation
   def update
+    self.resource = resource_class.new
+
     with_unconfirmed_confirmable do
       if @confirmable.has_no_password?
         @confirmable.attempt_set_password(params[:user])
@@ -24,10 +30,15 @@ class ConfirmationsController < Devise::ConfirmationsController
     if !@confirmable.errors.empty?
       render 'users/confirmations/new' #Change this if you don't have the views on default path
     end
+
   end
 
   def confirm
-    @original_token = params[resource_name].try(:[], :confirmation_token)
+    if params[:confirmation_token].present?
+      @original_token = params[:confirmation_token]
+    elsif params[resource_name].try(:[], :confirmation_token).present?
+      @original_token = params[resource_name][:confirmation_token]
+    end
     digested_token = Devise.token_generator.digest(self, :confirmation_token, @original_token)
     self.resource = resource_class.find_by_confirmation_token! digested_token
     resource.assign_attributes(permitted_params) unless params[resource_name].nil?
@@ -43,6 +54,7 @@ class ConfirmationsController < Devise::ConfirmationsController
 
   # GET /resource/confirmation?confirmation_token=abcdef
   def show
+    @confirmation_token = params[:confirmation_token]
     if params[:confirmation_token].present?
       @original_token = params[:confirmation_token]
     elsif params[resource_name].try(:[], :confirmation_token).present?

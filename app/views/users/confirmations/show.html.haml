@@ -1,5 +1,5 @@
 %h2 Account Activation for TOO BIG Promo Dashboard
-= form_for resource, :as => resource_name, :url => update_user_confirmation_path, :html => {:method => 'patch'}, :id => 'activation-form' do |f|
+= form_for resource, :as => resource_name, :url => confirm_user_path, :html => {:method => 'patch'}, :id => 'activation-form' do |f|
   = devise_error_messages!
   %fieldset
   %p
@@ -8,5 +8,5 @@
   %p
     = f.label :password_confirmation,'Password Confirmation:'
     = f.password_field :password_confirmation
-  = hidden_field_tag :confirmation_token,@confirmation_token
+  = hidden_field_tag :confirmation_token, @confirmation_token
   %p= f.submit "Activate Your Account"
