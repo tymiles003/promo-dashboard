@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :path => '', :path_names => {:sign_in => 'login'}
+
   post 'web_hooks/eventbrite' => 'web_hooks#eventbrite'
 
   resources :access_codes
