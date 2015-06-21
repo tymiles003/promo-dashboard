@@ -1,4 +1,3 @@
-config/secrets.yml
 log/*
 log/development.log
 .idea/
