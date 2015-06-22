@@ -8,11 +8,15 @@
       The Too Big For Our House (Party).
     %ul
       %li
-        The only way to buy tickets to this private party is via an Access Code to
-        %a{href: @eventbrite_event_url, target: '_new'}
-        the Eventbrite.
+        %a{href: "http://bit.ly/toobigcreator", target: '_new'}
+          Event Creators
+        and Housemates like yourself are free.
       %li
-        Only Housemates or Event Creators like you can create Access Codes.
+        Everyone else (including your friends) has to buy tickets via an Access Code on
+        %a{href: @eventbrite_event_url, target: '_new'}
+          the Eventbrite.
+      %li
+        Only Event Creators and Housemates can create Access Codes.
       %li
         These Access Codes currently grant access to
         %strong
@@ -22,10 +26,10 @@
           $20 Regular Tickets
         soon, so invite your peeps now!
       %li
-        Each Access Code can only be used for one Order, but a single Order can include up to
+        Each Access Code can be used for up to
         %strong
           2
-        Attendees/tickets. So people you invite can buy for themselves and optionally for a +1 as well.
+        tickets.  So your friend can purchase a ticket for their +1 as well.
   %hr
   - num_codes_created = @access_codes.length
   = render :partial => 'new', :locals => {num_codes_created: num_codes_created}

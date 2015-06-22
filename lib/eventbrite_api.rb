@@ -4,6 +4,7 @@ class EventbriteAPI
     @event_id = ENV['event_id']
     @ticket_class_ids = ENV['ticket_class_ids']
     @uses_per_access_code = ENV['uses_per_access_code']
+    Eventbrite.token = ENV['eventbrite_personal_oauth_token']
   end
 
   '''
@@ -48,7 +49,7 @@ class EventbriteAPI
       eventbrite_response = agent.post(Eventbrite.api_url(endpoint), post_query, headers)
       JSON.parse(eventbrite_response.body)
     rescue Exception => e
-      raise Exceptions::EventbriteCodeCreationError(e.message)
+      raise Exceptions::EventbriteCodeCreationError.new(e.message)
     end
   end
 

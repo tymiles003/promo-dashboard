@@ -1,0 +1,16 @@
+%p
+  You've been granted access to the
+  =link_to 'Promo Dashboard for Too Big For Our House (Party): 20Mission moves to The Village.', confirmation_url(@resource, confirmation_token: @token)
+
+%p
+  While
+  %a{href: "http://bit.ly/toobigcreator", target: '_new'}
+    Event Creators
+  and Housemates like yourself are free, everyone else (inlcuding your friends) has to buy tickets via an Access Code on
+  %a{href: @eventbrite_event_url, target: '_new'}
+    the Eventbrite.
+
+%p
+  These Access Codes currently grant access to $15 Early Bird Tickets, but the price will raise to $20 Regular Tickets soon,
+  so
+  =link_to 'invite your peeps now!', confirmation_url(@resource, confirmation_token: @token)
