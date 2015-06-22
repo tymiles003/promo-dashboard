@@ -7,8 +7,11 @@ gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 # Authentication and the like
 gem 'devise'
+gem 'cancancan'
+
 # Seems to use formtastic
 gem 'formtastic'
+
 
 # Figaro configuration management
 gem "figaro"
