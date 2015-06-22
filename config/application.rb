@@ -9,6 +9,11 @@ Bundler.require(*Rails.groups)
 module Toobig
   class Application < Rails::Application
 
+    # Assets stuff
+    config.assets.enabled = true
+    config.assets.initialize_on_precompile = false
+    config.assets.precompile += ['rails_admin/rails_admin.css', 'rails_admin/rails_admin.js']
+
     # Mailer config
     config.action_mailer.default_url_options = {:host => ENV['mailer_host']}
     config.action_mailer.raise_delivery_errors = true
