@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, :controllers => {:confirmations => 'confirmations'}
 
   devise_scope :user do
     patch "/confirm" => "confirmations#confirm", :as => :confirm_user
   end
-
 
   post 'web_hooks/eventbrite' => 'web_hooks#eventbrite'
 
