@@ -14,10 +14,10 @@ class EventbriteAPI
   def get_order_attendees(order_id)
     order_attendees = []
 
-    order = Eventbrite::Order.retrieve(order_id)
+    order = Eventbrite::Order.retrieve(id: order_id, expand: 'attendees')
     if order
-      order.attendees.each do |attendee|
-        attendee_id = attendee.id
+      order['attendees'].each do |attendee|
+        attendee_id = attendee['id']
         attendee = Eventbrite::Attendee.retrieve(@event_id, id: attendee_id, expand: 'promotional_code')
         if attendee
           order_attendees.push(attendee)

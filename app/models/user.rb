@@ -4,6 +4,19 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_many :access_codes
+  has_many :attendees, :through => :access_codes, :source=> :attendees
+
+  def full_name
+    '%s %s' % [first_name, last_name]
+  end
+
+  def codes_created
+    access_codes.count
+  end
+
+  def attendees_referred
+    attendees.count
+  end
 
   def only_if_unconfirmed
     pending_any_confirmation {yield}
