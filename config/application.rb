@@ -11,6 +11,19 @@ module Toobig
 
     # Mailer config
     config.action_mailer.default_url_options = {:host => ENV['mailer_host']}
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.perform_deliveries = true
+
+    config.action_mailer.delivery_method = :smtp
+
+    ActionMailer::Base.smtp_settings = {
+        :user_name => ENV['smtp_username'],
+        :password => ENV['smtp_password'],
+        :address => ENV['smtp_address'],
+        :port => ENV['smtp_port'],
+        :authentication => :plain,
+        :enable_starttls_auto => true
+    }
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
