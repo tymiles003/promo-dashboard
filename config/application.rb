@@ -8,6 +8,28 @@ Bundler.require(*Rails.groups)
 
 module Toobig
   class Application < Rails::Application
+
+    # Assets stuff
+    config.assets.enabled = true
+    config.assets.initialize_on_precompile = false
+    config.assets.precompile += ['rails_admin/rails_admin.css', 'rails_admin/rails_admin.js']
+
+    # Mailer config
+    config.action_mailer.default_url_options = {:host => ENV['mailer_host']}
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.perform_deliveries = true
+
+    config.action_mailer.delivery_method = :smtp
+
+    ActionMailer::Base.smtp_settings = {
+        :user_name => ENV['smtp_username'],
+        :password => ENV['smtp_password'],
+        :address => ENV['smtp_address'],
+        :port => ENV['smtp_port'],
+        :authentication => :plain,
+        :enable_starttls_auto => true
+    }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

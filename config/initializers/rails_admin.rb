@@ -1,33 +1,73 @@
 RailsAdmin.config do |config|
 
-  ### Popular gems integration
-
   # Field specs
   config.model 'User' do
+    object_label_method do
+      :full_name
+    end
+
     list do
+      field :first_name
+      field :last_name
       field :email
       field :code_allowance
+      field :codes_created
+      field :attendees_referred
       field :created_at
+      field :admin
       field :sign_in_count
       field :last_sign_in_at
     end
-  end
 
-  config.model 'Attendee' do
-    list do
-      field :name
+    edit do
+      field :first_name
+      field :last_name
       field :email
-      field :access_code
-      field :ordered_at
+      field :code_allowance
+      field :admin
     end
   end
 
   config.model 'AccessCode' do
+    object_label_method do
+      :code
+    end
+
     list do
-      field :user_id
+      field :user do
+        formatted_value do
+          bindings[:object].user.full_name
+        end
+      end
       field :code
-      field :created_at
+      field :attendees_referred
       field :attendees
+      field :created_at
+    end
+  end
+
+  config.model 'Attendee' do
+    object_label_method do
+      :name
+    end
+
+    list do
+      field :name
+      field :email
+      field :user do
+        label do
+          "Inviting User"
+        end
+        formatted_value do
+          bindings[:object].user.full_name
+        end
+      end
+      field :access_code do
+        formatted_value do
+          bindings[:object].access_code.full_name
+        end
+      end
+      field :ordered_at
     end
   end
 

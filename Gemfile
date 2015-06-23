@@ -16,6 +16,7 @@ gem 'formtastic'
 # Figaro configuration management
 gem "figaro"
 
+
 # EventBrite API v3 from https://github.com/envoy/eventbrite
 gem 'eventbrite'
 
