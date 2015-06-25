@@ -41,7 +41,7 @@ module AccessCodesHelper
 
     if access_code.length < 5
       raise Exceptions::CodeTooShortError
-    elsif access_code.length > 20
+    elsif access_code.length > 30
       raise Exceptions::CodeTooLongError
     end
 
