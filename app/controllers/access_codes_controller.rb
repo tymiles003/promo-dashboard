@@ -47,7 +47,7 @@ class AccessCodesController < ApplicationController
       rescue Exceptions::CodeTooShortError
         flash[:error] = "The code you entered is too short."
       rescue Exceptions::CodeTooLongError
-        flash[:error] = "The code you entered has already been taken"
+        flash[:error] = "The code you entered is too long."
       rescue Exceptions::CodeAlreadyCreatedError
         flash[:error] = 'The code you entered is unavailable because it\'s already been created.'
       rescue Exceptions::EventbriteCodeCreationError => ex
