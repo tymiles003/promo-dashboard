@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.2.1'
 
+gem 'genderize'
+
 # Administration yo
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 

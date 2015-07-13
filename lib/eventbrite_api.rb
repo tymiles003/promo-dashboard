@@ -46,16 +46,9 @@ class EventbriteAPI
             'access_code.quantity_available': @uses_per_access_code
     }
     begin
-      puts "BEFORE"
-      puts ENV['eventbrite_personal_oauth_token']
       eventbrite_response = agent.post(Eventbrite.api_url(endpoint), post_query, headers)
-      puts "AFTER"
-      puts eventbrite_response
       JSON.parse(eventbrite_response.body)
     rescue Exception => e
-
-      puts e.page.body
-      puts "B"
       raise Exceptions::EventbriteCodeCreationError.new(e.message)
     end
   end
