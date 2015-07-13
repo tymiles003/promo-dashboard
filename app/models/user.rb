@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
     access_codes.count
   end
 
+  def females_referred
+    attendees.where(gender: true).count
+  end
+
   def attendees_referred
     attendees.count
   end
