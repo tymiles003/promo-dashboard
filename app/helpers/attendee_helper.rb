@@ -25,7 +25,7 @@ module AttendeeHelper
             new_attendee.ordered_at = eventbrite_attendee.created
             new_attendee.save!
           else
-            Rails.logger.warning 'Order occured with un-synced eventbrite acess code %s' % code
+            Rails.logger.warn 'Order occured with un-synced eventbrite acess code %s' % code
           end
         end
       else
