@@ -12,7 +12,7 @@ module AttendeeHelper
 
         attendee = Attendee.where('eventbrite_attendee_id' => eventbrite_attendee_id).first
         if attendee
-          logger.info 'Attendee with eventbrite ID %s already exists with ID %s, skipping' % [eventbrite_attendee_id, attendee.id]
+          Rails.logger.info 'Attendee with eventbrite ID %s already exists with ID %s, skipping' % [eventbrite_attendee_id, attendee.id]
         else
           access_code = AccessCode.where('code' => code).first
           if access_code
@@ -25,11 +25,11 @@ module AttendeeHelper
             new_attendee.ordered_at = eventbrite_attendee.created
             new_attendee.save!
           else
-            logger.warning 'Order occured with un-synced eventbrite acess code %s' % code
+            Rails.logger.warning 'Order occured with un-synced eventbrite acess code %s' % code
           end
         end
       else
-        logger.info 'Skipping attendee who didn\'t use an access code'
+        Rails.logger.info 'Skipping attendee who didn\'t use an access code'
       end
     end
   end
