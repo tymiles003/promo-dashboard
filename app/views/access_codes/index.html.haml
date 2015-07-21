@@ -56,7 +56,10 @@
             - if access_code.attendees.length > 0
               - codes_used += 1
               - access_code.attendees.each do |attendee|
-                = attendee.name + ' (' + attendee.email + ') ordered at ' + attendee.ordered_at.strftime("%D %I:%M%p")
+                = attendee.name
+                - if attendee.email.present?
+                  =' (' + attendee.email + ')'
+                = ' ordered at ' + attendee.ordered_at.strftime("%D %I:%M%p")
                 %br
             - else
               (No Attendees have ordered with this access code yet.)
