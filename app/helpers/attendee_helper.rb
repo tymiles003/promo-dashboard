@@ -22,7 +22,11 @@ module AttendeeHelper
             new_attendee.access_code_id = access_code.id
             new_attendee.eventbrite_attendee_id = eventbrite_attendee_id
             new_attendee.name = eventbrite_attendee.profile.name
-            new_attendee.email = eventbrite_attendee.profile.email
+            if eventbrite_attendee.profile.has_key?('email')
+              new_attendee.email = eventbrite_attendee.profile.email
+            else
+              Rails.logger.warn "Missing email for attendee with ID %s" % eventbrite_attendee_id
+            end
             new_attendee.ordered_at = eventbrite_attendee.created
             new_attendee.save!
           else
