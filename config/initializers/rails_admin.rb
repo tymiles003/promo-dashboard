@@ -54,26 +54,26 @@ RailsAdmin.config do |config|
 
     list do
       field :name
-      field :gender do
-        formatted_value do
-          if value === true
-            "Female"
-          elsif value === false
-            "Male"
-          else
-            "Unknown"
-          end
-        end
-        pretty_value do
-          if value === true
-            "Female"
-          elsif value === false
-            "Male"
-          else
-            "Unknown"
-          end
-        end
-      end
+      # field :gender do
+      #   formatted_value do
+      #     if value === true
+      #       "Female"
+      #     elsif value === false
+      #       "Male"
+      #     else
+      #       "Unknown"
+      #     end
+      #   end
+      #   pretty_value do
+      #     if value === true
+      #       "Female"
+      #     elsif value === false
+      #       "Male"
+      #     else
+      #       "Unknown"
+      #     end
+      #   end
+      # end
       field :email
       field :user do
         label do
@@ -89,7 +89,7 @@ RailsAdmin.config do |config|
         end
       end
       field :ordered_at
-      field :last_genderize_at
+      # field :last_genderize_at
     end
   end
 
