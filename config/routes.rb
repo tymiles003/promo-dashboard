@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :events
+  get 'events/index'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   devise_for :users, :controllers => {:confirmations => 'confirmations'}

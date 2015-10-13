@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  start_at: 2015-10-12 21:56:21
+  end_at: 2015-10-12 21:56:21
+  eventbrite_event_id: 1
+  uses_per_code: 1
+  eventbrite_url: MyString
+
+two:
+  title: MyString
+  description: MyText
+  start_at: 2015-10-12 21:56:21
+  end_at: 2015-10-12 21:56:21
+  eventbrite_event_id: 1
+  uses_per_code: 1
+  eventbrite_url: MyString

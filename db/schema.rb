@@ -43,6 +43,18 @@ ActiveRecord::Schema.define(version: 20150713035927) do
   add_index "attendees", ["access_code_id"], name: "index_attendees_on_access_code_id", using: :btree
   add_index "attendees", ["eventbrite_attendee_id"], name: "index_attendees_on_eventbrite_attendee_id", unique: true, using: :btree
 
+  create_table "events", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.integer  "eventbrite_event_id"
+    t.integer  "uses_per_code"
+    t.string   "eventbrite_url"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "password"
