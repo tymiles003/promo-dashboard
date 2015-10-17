@@ -1,10 +1,39 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string
+#  password               :string
+#  code_allowance         :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  admin                  :boolean          default(FALSE)
+#  first_name             :string
+#  last_name              :string
+#
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_many :access_codes
-  has_many :attendees, :through => :access_codes, :source=> :attendees
+  has_many :attendees, :through => :access_codes
+  has_many :user_events
+  has_many :events, :through => :user_events
 
   def full_name
     '%s %s' % [first_name, last_name]

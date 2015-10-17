@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: attendees
+#
+#  id                     :integer          not null, primary key
+#  name                   :string
+#  email                  :string
+#  access_code_id         :integer
+#  ordered_at             :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  eventbrite_attendee_id :string
+#  gender                 :boolean
+#  last_genderize_at      :datetime
+#
+
 class Attendee < ActiveRecord::Base
   belongs_to :access_code
 
