@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :events
-  get 'events/index'
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
@@ -13,15 +11,16 @@ Rails.application.routes.draw do
 
   post 'web_hooks/eventbrite' => 'web_hooks#eventbrite'
 
-  resources :access_codes
   authenticate :user do
-    resources :access_codes
+    resources :events, only: [:index] do
+      resources :access_codes, only: [:index, :create]
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'access_codes#index'
+  root 'events#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

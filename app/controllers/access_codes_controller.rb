@@ -15,15 +15,6 @@ class AccessCodesController < ApplicationController
 
   end
 
-  # GET /access_codes/1
-  # GET /access_codes/1.json
-  def show
-  end
-
-  # GET /access_codes/1/edit
-  def edit
-  end
-
   # FUTURE: set this up as ajax
   # POST /access_codes
   # POST /access_codes.json
@@ -58,30 +49,6 @@ class AccessCodesController < ApplicationController
     end
 
     redirect_to root_path
-  end
-
-  # PATCH/PUT /access_codes/1
-  # PATCH/PUT /access_codes/1.json
-  def update
-    respond_to do |format|
-      if @access_code.update(access_code_params)
-        format.html { redirect_to @access_code, notice: 'Access code was successfully updated.' }
-        format.json { render :show, status: :ok, location: @access_code }
-      else
-        format.html { render :edit }
-        format.json { render json: @access_code.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /access_codes/1
-  # DELETE /access_codes/1.json
-  def destroy
-    @access_code.destroy
-    respond_to do |format|
-      format.html { redirect_to access_codes_url, notice: 'Access code was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private
