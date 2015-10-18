@@ -1,2 +1,6 @@
-%h1 Events#index
-%p Find me in app/views/events/index.html.haml
+%h1 My Events
+-if @events.length == 0
+  %p You currently have no events
+-else
+
+  - @events.each do |event|
