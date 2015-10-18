@@ -12,8 +12,7 @@ gem 'devise'
 gem 'cancancan'
 
 # Seems to use formtastic
-gem 'formtastic'
-
+gem 'simple_form'
 
 # Figaro configuration management
 gem "figaro"
