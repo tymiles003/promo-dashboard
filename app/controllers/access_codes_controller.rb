@@ -7,8 +7,13 @@ class AccessCodesController < ApplicationController
   # GET /access_codes.json
   def index
     #TODO: use auth here and elsewhere
+
+
     @user = current_user
     @code_allowance = @user.code_allowance
+
+    @event = Event.find params[:event_id]
+
     @access_codes = AccessCode.where(user_id: @user.id)
     @access_code = AccessCode.new
     @eventbrite_event_url = ENV['eventbrite_event_url']

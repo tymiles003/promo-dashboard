@@ -1,4 +1,4 @@
-= form_for @access_code, html: { class: "form-inline access_code" } do |f|
+= form_for [@event, @access_code], html: { class: "form-inline access_code" } do |f|
   .form-group
     = f.text_field :code, class: 'form-control', required: true, placeholder: 'e.g. yoursecretcode'
     = error_span(@access_code[:code])
