@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   has_many :user_events
   has_many :events, :through => :user_events
 
-  validates :email, :first_name, :last_name, presence: true
+  validates :email, presence: true
 
   def full_name
     '%s %s' % [first_name, last_name]
