@@ -1,31 +1,46 @@
 RailsAdmin.config do |config|
 
+  config.excluded_models << UserEvent
+
   # Field specs
+  config.model 'Event' do
+    object_label_method do
+      :title
+    end
+
+    field :title
+    field :description
+    field :start_at
+    field :end_at
+    field :eventbrite_event_id, :string do
+      label do
+        'EventBrite Event ID'
+      end
+    end
+    field :uses_per_code
+    field :eventbrite_url
+    field :users
+  end
+
   config.model 'User' do
     object_label_method do
       :full_name
     end
 
+    field :first_name
+    field :last_name
+    field :email
+    field :code_allowance
+    field :admin
+    field :events
+
     list do
-      field :first_name
-      field :last_name
-      field :email
-      field :code_allowance
       field :codes_created
       field :attendees_referred
       field :females_referred
       field :created_at
-      field :admin
       field :sign_in_count
       field :last_sign_in_at
-    end
-
-    edit do
-      field :first_name
-      field :last_name
-      field :email
-      field :code_allowance
-      field :admin
     end
   end
 
