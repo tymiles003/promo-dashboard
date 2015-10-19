@@ -8,12 +8,16 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  eventbrite_access_code_id :string
+#  event_id                  :integer
 #
 
 class AccessCode < ActiveRecord::Base
 
   belongs_to :user
   has_many :attendees
+  belongs_to :event
+
+  validates :user_id, :code, :event_id, :eventbrite_access_code_id, presence: true
 
   def attendees_referred
     attendees.count

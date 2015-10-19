@@ -17,6 +17,11 @@
 class Event < ActiveRecord::Base
   has_many :user_events
   has_many :users, :through => :user_events
+  has_many :access_codes
+
+  validates :title, :start_at, :end_at, :eventbrite_event_id, :uses_per_code, :eventbrite_url, presence: true
+  validates_numericality_of(:uses_per_code, greater_than: 0, only_integer: true)
+  validates_format_of :eventbrite_url, :with => URI::regexp(%w(http https))
 
   default_scope { order('start_at DESC') }
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013050603) do
+ActiveRecord::Schema.define(version: 20151019011848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,9 +22,11 @@ ActiveRecord::Schema.define(version: 20151013050603) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.string   "eventbrite_access_code_id"
+    t.integer  "event_id"
   end
 
   add_index "access_codes", ["code"], name: "index_access_codes_on_code", unique: true, using: :btree
+  add_index "access_codes", ["event_id"], name: "index_access_codes_on_event_id", using: :btree
   add_index "access_codes", ["eventbrite_access_code_id"], name: "index_access_codes_on_eventbrite_access_code_id", unique: true, using: :btree
   add_index "access_codes", ["user_id"], name: "index_access_codes_on_user_id", using: :btree
 
@@ -48,7 +50,7 @@ ActiveRecord::Schema.define(version: 20151013050603) do
     t.text     "description"
     t.datetime "start_at"
     t.datetime "end_at"
-    t.integer  "eventbrite_event_id"
+    t.string   "eventbrite_event_id"
     t.integer  "uses_per_code"
     t.string   "eventbrite_url"
     t.datetime "created_at",          null: false
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(version: 20151013050603) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "access_codes", "events"
   add_foreign_key "access_codes", "users"
   add_foreign_key "attendees", "access_codes"
   add_foreign_key "user_events", "events"
