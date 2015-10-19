@@ -13,4 +13,10 @@
 class UserEvent < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
+
+  after_initialize :default_values
+  def default_values
+    self.code_allowance = 5
+  end
+
 end
