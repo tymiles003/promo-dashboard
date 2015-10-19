@@ -18,11 +18,17 @@ class WebHooksController < ApplicationController
     api_url = params[:api_url]
     order_match = /https:\/\/www\.eventbriteapi\.com\/v\d+\/orders\/(\d+)\/?/i.match(api_url)
     if order_match
-      order_id = order_match[1]
+      eventbrite_order_id = order_match[1]
 
       eb = EventbriteAPI.new
-      attendees = eb.get_order_attendees(order_id)
-      AttendeeHelper.sync_attendees(attendees)
+      eventbrite_order = eb.get_order(eventbrite_order_id)
+      eventbrite_event_id = eventbrite_order['event_id']
+
+      eventbrite_order['attendees'].each do |attendee|
+        attendee = eb.get_attendee(eventbrite_event_id, attendee['id'])
+        event = Event.find_by_eventbrite_event_id(eventbrite_event_id)
+        AttendeeHelper.sync_attendee(event, attendee)
+      end
 
       render plain: 'Order Synced'
     else

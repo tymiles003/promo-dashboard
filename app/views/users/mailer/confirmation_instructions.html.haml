@@ -1,20 +1,18 @@
 %p
   You've been granted access to the
-  =link_to 'Promo Dashboard', confirmation_url(@resource, confirmation_token: @token)
-  for Too Big For Our (House) Party: 20Mission moves to The Village.  This promo dashboard lets you create Access Codes
-  for buying tickets to this invite-only party.  Consider yourself special because this magical tool is only available
-  to 20Mission housemates and
-  %a{href: "http://bit.ly/toobigcreator", target: '_new'}
-    Event Creators
-  and Housemates like yourself are free, everyone else (inlcuding your friends) has to buy tickets via an Access Code on
-  %a{href: @eventbrite_event_url, target: '_new'}
-    the Eventbrite.  Consider yourself special, because you've been added to this magical tool which lets you pick
-    who can attend the TOO BIG party.
-
+  =link_to '20Mission Promo Dashboard', confirmation_url(@resource, confirmation_token: @token) + '.'
+  This promo dashboard lets you create Access Codes
+  for buying tickets to our invite-only party.
 
 %p
-  These Access Codes currently grant access to $15 Early Bird Tickets, but the price will raise to $20 Regular Tickets soon,
-  so
+  Consider yourself special because this magical tool i only available to 20Mission housemates and
+  %a{href: "http://bit.ly/toobigcreator", target: '_new'}
+    Event Creators
+%p
+  Everyone else (inlcuding your friends) has to buy tickets via an Access Code on Eventbrite.
+
+%p
+  So
   =link_to 'invite your peeps now!', confirmation_url(@resource, confirmation_token: @token)
 
 %p -- Ben G and the good folks at 20Mission.

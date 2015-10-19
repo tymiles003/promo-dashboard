@@ -1,42 +1,33 @@
 class AccessCodesController < ApplicationController
-  before_action :set_access_code, only: [:show, :edit, :update, :destroy]
+  before_action :require_user_event
 
   before_action :authenticate_user!
 
   # GET /access_codes
   # GET /access_codes.json
   def index
-    #TODO: use auth here and elsewhere
+    @code_allowance = @user_event.code_allowance
 
-
-    @user = current_user
-    @code_allowance = @user.code_allowance
-
-    @event = Event.find params[:event_id]
-
-    @access_codes = AccessCode.where(user_id: @user.id)
+    @access_codes = @event.access_codes.where(user: current_user)
     @access_code = AccessCode.new
-    @eventbrite_event_url = ENV['eventbrite_event_url']
-
   end
 
   # FUTURE: set this up as ajax
   # POST /access_codes
   # POST /access_codes.json
   def create
-
     # Simplifies things to only take in lowercase codes
     code = access_code_params[:code].downcase
-    user_id = current_user.id
-    user = User.find(user_id)
-    current_access_codes_count = user.access_codes.count
-    access_code_allowance = user.code_allowance
+    user = current_user
+    event_id = params[:event_id]
+    current_access_codes_count = user.access_codes.where(event_id: event_id).count
+    access_code_allowance = @user_event.code_allowance
 
     if current_access_codes_count >= access_code_allowance
-      flash[:error] = 'You\'re past your access code allowance of %s.  Contact Ben or Andrew for another code.' % access_code_allowance
+      flash[:error] = 'You\'re past your access code allowance of %s for this event.  Contact Ben or Andrew for another code.' % access_code_allowance
     else
       begin
-        AccessCodesHelper.create_and_sync_access_code(code, user_id)
+        AccessCodesHelper.create_and_sync_access_code(@event, code, current_user.id)
         flash[:success] = 'Successfully created access code %s' % access_code_params[:code]
       rescue Exceptions::InvalidCodeCharacters
         flash[:error] = "Spaces, apostrophes and non-alphanumeric characters (except '-', '_', '@' and '.') are not allowed in access codes."
@@ -53,10 +44,22 @@ class AccessCodesController < ApplicationController
       end
     end
 
-    redirect_to root_path
+    redirect_to event_access_codes_path(@event)
   end
 
   private
+    def require_user_event
+      @event = Event.find params[:event_id]
+
+      @user_event = current_user.user_events.find_by(event: @event)
+
+      # This redirect would happen if they're not associated with tjos evemt
+      unless @user_event
+        flash[:alert] = "You aren't associated with that event."
+        redirect_to root_path
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_access_code
       @access_code = AccessCode.find(params[:id])

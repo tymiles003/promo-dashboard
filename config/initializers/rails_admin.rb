@@ -10,14 +10,19 @@ RailsAdmin.config do |config|
     field :description
     field :start_at
     field :end_at
-    field :eventbrite_event_id, :string do
-      label do
-        'EventBrite Event ID'
-      end
-    end
+
     field :uses_per_code
     field :eventbrite_url
     field :users
+
+    edit do
+      field :eventbrite_event_id, :string do
+        label do
+          'EventBrite Event ID'
+        end
+      end
+      field :ticket_class_ids
+    end
   end
 
   config.model 'User' do
@@ -28,7 +33,6 @@ RailsAdmin.config do |config|
     field :first_name
     field :last_name
     field :email
-    field :code_allowance
     field :admin
     field :events
 

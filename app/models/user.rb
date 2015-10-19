@@ -5,7 +5,7 @@
 #  id                     :integer          not null, primary key
 #  email                  :string
 #  password               :string
-#  code_allowance         :integer
+#  code_allowance         :integer #TODO: deprecate
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  encrypted_password     :string           default(""), not null
@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_many :attendees, :through => :access_codes
   has_many :user_events
   has_many :events, :through => :user_events
+
+  validates :email, :first_name, :last_name, presence: true
 
   def full_name
     '%s %s' % [first_name, last_name]

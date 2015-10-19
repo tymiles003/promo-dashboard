@@ -15,7 +15,12 @@
 #
 
 class Attendee < ActiveRecord::Base
+  #TODO: add eventbrite_event_id to this one as well
+    #TODO: update the uniqueness constraint
   belongs_to :access_code
+  belongs_to :event
+
+  validates :name, :access_code_id, :ordered_at, :eventbrite_attendee_id, presence: true
 
   GENDERS = [[0, 'Male'], [1, 'Female']]
 

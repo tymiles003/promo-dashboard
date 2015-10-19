@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019024836) do
+ActiveRecord::Schema.define(version: 20151019211845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,9 +40,12 @@ ActiveRecord::Schema.define(version: 20151019024836) do
     t.string   "eventbrite_attendee_id"
     t.boolean  "gender"
     t.datetime "last_genderize_at"
+    t.string   "eventbrite_event_id"
+    t.integer  "event_id"
   end
 
   add_index "attendees", ["access_code_id"], name: "index_attendees_on_access_code_id", using: :btree
+  add_index "attendees", ["event_id"], name: "index_attendees_on_event_id", using: :btree
   add_index "attendees", ["eventbrite_attendee_id"], name: "index_attendees_on_eventbrite_attendee_id", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
@@ -55,14 +58,15 @@ ActiveRecord::Schema.define(version: 20151019024836) do
     t.string   "eventbrite_url"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "ticket_class_ids"
   end
 
   create_table "user_events", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "code_allowance"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "code_allowance", default: 1, null: false
   end
 
   add_index "user_events", ["event_id"], name: "index_user_events_on_event_id", using: :btree
@@ -98,6 +102,7 @@ ActiveRecord::Schema.define(version: 20151019024836) do
   add_foreign_key "access_codes", "events"
   add_foreign_key "access_codes", "users"
   add_foreign_key "attendees", "access_codes"
+  add_foreign_key "attendees", "events"
   add_foreign_key "user_events", "events"
   add_foreign_key "user_events", "users"
 end
