@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_many :access_codes
   has_many :attendees, :through => :access_codes
-  has_many :user_events
+  has_many :user_events, dependent: :destroy
   has_many :events, :through => :user_events
 
   validates :email, presence: true

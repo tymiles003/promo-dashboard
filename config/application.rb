@@ -15,21 +15,21 @@ module PromoDashboard
     config.assets.precompile += ['rails_admin/rails_admin.css', 'rails_admin/rails_admin.js']
 
     # Mailer config
-    config.action_mailer.default_url_options = {:host => ENV['mailer_host']}
+    config.action_mailer.default_url_options = {:host => Rails.application.secrets.domain_name}
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.perform_deliveries = true
 
     config.action_mailer.delivery_method = :smtp
 
-    ActionMailer::Base.smtp_settings = {
-        :user_name => ENV['smtp_username'],
-        :password => ENV['smtp_password'],
-        :address => ENV['smtp_address'],
-        :port => ENV['smtp_port'],
-        :authentication => :plain,
-        :enable_starttls_auto => true
+    config.action_mailer.smtp_settings = {
+        address: "smtp.sendgrid.net",
+        port: 587,
+        domain: Rails.application.secrets.domain_name,
+        authentication: "plain",
+        enable_starttls_auto: true,
+        user_name: Rails.application.secrets.email_provider_username,
+        password: Rails.application.secrets.email_provider_password
     }
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
