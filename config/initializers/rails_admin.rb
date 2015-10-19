@@ -1,7 +1,5 @@
 RailsAdmin.config do |config|
 
-  config.excluded_models << UserEvent
-
   # Field specs
   config.model 'Event' do
     object_label_method do
