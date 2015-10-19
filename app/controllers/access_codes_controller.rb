@@ -23,7 +23,9 @@ class AccessCodesController < ApplicationController
     current_access_codes_count = user.access_codes.where(event_id: event_id).count
     access_code_allowance = @user_event.code_allowance
 
-    if current_access_codes_count >= access_code_allowance
+    if Time.now > @event.end_at
+      flash[:error] = 'This event has already started, so you can\'t create access codes for it'
+    elsif current_access_codes_count >= access_code_allowance
       flash[:error] = 'You\'re past your access code allowance of %s for this event.  Contact Ben or Andrew for another code.' % access_code_allowance
     else
       begin

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019212810) do
+ActiveRecord::Schema.define(version: 20151019214241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20151019212810) do
     t.integer  "event_id"
   end
 
-  add_index "access_codes", ["code"], name: "index_access_codes_on_code", unique: true, using: :btree
+  add_index "access_codes", ["event_id", "code"], name: "index_access_codes_on_event_id_and_code", unique: true, using: :btree
   add_index "access_codes", ["event_id"], name: "index_access_codes_on_event_id", using: :btree
   add_index "access_codes", ["eventbrite_access_code_id"], name: "index_access_codes_on_eventbrite_access_code_id", unique: true, using: :btree
   add_index "access_codes", ["user_id"], name: "index_access_codes_on_user_id", using: :btree
