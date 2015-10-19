@@ -16,7 +16,7 @@ class UserEvent < ActiveRecord::Base
 
   after_initialize :default_values
   def default_values
-    self.code_allowance = 5
+    self.code_allowance ||= 5
   end
 
 end
