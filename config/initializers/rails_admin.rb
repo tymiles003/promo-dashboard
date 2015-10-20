@@ -1,5 +1,13 @@
 RailsAdmin.config do |config|
 
+  config.model 'UserEvent' do
+    field :user
+    field :event
+    field :code_allowance do
+
+    end
+  end
+
   # Field specs
   config.model 'Event' do
     object_label_method do
@@ -37,6 +45,7 @@ RailsAdmin.config do |config|
     field :events
 
     list do
+      items_per_page 100
       field :codes_created
       field :attendees_referred
       field :females_referred
