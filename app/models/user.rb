@@ -40,11 +40,11 @@ class User < ActiveRecord::Base
   validates :email, presence: true
 
   def halloween_attendees
-    attendees.halloween
+    attendees.halloween.to_a
   end
 
   def halloween_access_codes
-    access_codes.halloween
+    access_codes.halloween.to_a
   end
 
   def full_name
