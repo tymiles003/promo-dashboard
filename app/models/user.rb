@@ -39,6 +39,14 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
 
+  def halloween_attendees
+    attendees.halloween
+  end
+
+  def halloween_access_codes
+    access_codes.halloween
+  end
+
   def full_name
     '%s %s' % [first_name, last_name]
   end

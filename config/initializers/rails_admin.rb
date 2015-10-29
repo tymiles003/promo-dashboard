@@ -52,13 +52,14 @@ RailsAdmin.config do |config|
     field :email
     field :admin
     field :events
+    field :halloween_attendees
+    field :halloween_access_codes
 
     list do
       scopes [:halloween, nil]
       items_per_page 100
       field :codes_created
       field :attendees_referred
-      field :females_referred
       field :created_at
       field :sign_in_count
       field :last_sign_in_at

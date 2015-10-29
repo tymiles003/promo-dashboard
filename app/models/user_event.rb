@@ -22,5 +22,5 @@ class UserEvent < ActiveRecord::Base
   def default_values
     self.code_allowance ||= 5
   end
-  
+
 end
