@@ -35,11 +35,9 @@ class User < ActiveRecord::Base
   has_many :user_events, dependent: :destroy
   has_many :events, :through => :user_events
 
-<<<<<<< HEAD
   scope :halloween, -> { includes(:user_events).where('user_events.event_id' => 1) }
-=======
+
   validates :email, presence: true
->>>>>>> 478244be9e8b5bf0620ccb87ec0312a9599751f3
 
   def full_name
     '%s %s' % [first_name, last_name]
