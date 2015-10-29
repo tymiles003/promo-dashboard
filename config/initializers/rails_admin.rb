@@ -54,19 +54,20 @@ RailsAdmin.config do |config|
     field :events
     field :halloween_attendees
     field :halloween_access_codes
-    
+    field :codes_created
+    field :attendees_referred
+    field :created_at
+    field :sign_in_count
+    field :last_sign_in_at
+
     edit do
-      exclude_fields :halloween_attendees, :halloween_access_codes
+      exclude_fields :halloween_attendees, :halloween_access_codes, :codes_created, :attendees_referred
+      exclude_fields :created_at, :sign_in_count, :last_sign_in_at
     end
 
     list do
       scopes [:halloween, nil]
       items_per_page 100
-      field :codes_created
-      field :attendees_referred
-      field :created_at
-      field :sign_in_count
-      field :last_sign_in_at
     end
   end
 
