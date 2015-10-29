@@ -19,6 +19,7 @@ class Attendee < ActiveRecord::Base
 
   GENDERS = [[0, 'Male'], [1, 'Female']]
 
+  scope :halloween, -> { includes(:access_code).where('access_codes.event_id' => 1) }
   # validates_inclusion_of :gender, :in => GENDERS, :allow_nil => true
 
   def user

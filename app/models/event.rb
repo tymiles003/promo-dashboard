@@ -25,4 +25,6 @@ class Event < ActiveRecord::Base
 
   default_scope { order('start_at DESC') }
 
+  scope :halloween, -> { where('id' => 1) }
+
 end

@@ -1,9 +1,20 @@
 RailsAdmin.config do |config|
 
+  config.model 'UserEvent' do
+    list do
+      scopes [:halloween, nil]
+    end
+  end
+
+
   # Field specs
   config.model 'Event' do
     object_label_method do
       :title
+    end
+
+    list do
+      scopes [:halloween, nil]
     end
 
     field :title
@@ -33,6 +44,7 @@ RailsAdmin.config do |config|
     field :events
 
     list do
+      scopes [:halloween, nil]
       field :codes_created
       field :attendees_referred
       field :females_referred
@@ -48,6 +60,7 @@ RailsAdmin.config do |config|
     end
 
     list do
+      scopes [:halloween, nil]
       field :user do
         formatted_value do
           bindings[:object].user.full_name
@@ -66,6 +79,7 @@ RailsAdmin.config do |config|
     end
 
     list do
+      scopes [:halloween, nil]
       field :name
       # field :gender do
       #   formatted_value do

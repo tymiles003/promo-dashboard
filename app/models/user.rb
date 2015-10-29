@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
   has_many :user_events
   has_many :events, :through => :user_events
 
+  scope :halloween, -> { includes(:user_events).where('user_events.event_id' => 1) }
+
   def full_name
     '%s %s' % [first_name, last_name]
   end

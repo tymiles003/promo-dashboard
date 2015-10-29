@@ -14,4 +14,6 @@ class UserEvent < ActiveRecord::Base
   belongs_to :event
 
   validates :user_id, :event_id, :code_allowance, presence: true
+
+  scope :halloween, -> { where('event_id' => 1) }
 end
