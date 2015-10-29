@@ -1,34 +1,8 @@
 - model_class = AccessCode
 .container
-  %h1=t '.title', :default =>'Access Codes Dashboard for Too Big'
-  %p
-    On July 25th, 20Mission is throwing
-    %a{href: @eventbrite_event_url, target: '_new'}
-      The Too Big For Our (House) Party.
-    %ul
-      %li
-        %a{href: "http://bit.ly/toobigcreator", target: '_new'}
-          Event Creators
-        and Housemates like yourself are free.
-      %li
-        Everyone else (including your friends) has to buy tickets via an Access Code on
-        %a{href: @eventbrite_event_url, target: '_new'}
-          the Eventbrite.
-      %li
-        Only Event Creators and Housemates can create Access Codes.
-      %li
-        These Access Codes currently grant access to
-        %strong
-          $20 Regular Tickets,
-        but the price will raise to
-        %strong
-          $40 Late to the Party Tickets
-        soon, so invite your peeps now!
-      %li
-        Each Access Code can be used for up to
-        %strong
-          2
-        tickets.  So your friend can purchase a ticket for their +1 as well.
+  %h1=t '.title', :default =>'Access Codes Dashboard for ' + @event.title.titleize
+  %p.description
+    =raw @event.description
   %hr
   - num_codes_created = @access_codes.length
   = render :partial => 'new', :locals => {num_codes_created: num_codes_created}
@@ -47,7 +21,7 @@
         %tr
           %td= access_code.code
           %td
-            - eventbrite_event_url = @eventbrite_event_url + '?access=' + access_code.code
+            - eventbrite_event_url = @event.eventbrite_url + '?access=' + access_code.code
             %a{href: eventbrite_event_url, target: '_new'}
               = eventbrite_event_url
           %td= access_code.created_at.strftime("%D %I:%M%p")

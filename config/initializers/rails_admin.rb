@@ -3,9 +3,15 @@ RailsAdmin.config do |config|
   config.model 'UserEvent' do
     list do
       scopes [:halloween, nil]
+      items_per_page 100
+    end
+
+    field :user
+    field :event
+    field :code_allowance do
+
     end
   end
-
 
   # Field specs
   config.model 'Event' do
@@ -21,14 +27,19 @@ RailsAdmin.config do |config|
     field :description
     field :start_at
     field :end_at
-    field :eventbrite_event_id, :string do
-      label do
-        'EventBrite Event ID'
-      end
-    end
+
     field :uses_per_code
     field :eventbrite_url
     field :users
+
+    edit do
+      field :eventbrite_event_id, :string do
+        label do
+          'EventBrite Event ID'
+        end
+      end
+      field :ticket_class_ids
+    end
   end
 
   config.model 'User' do
@@ -39,12 +50,12 @@ RailsAdmin.config do |config|
     field :first_name
     field :last_name
     field :email
-    field :code_allowance
     field :admin
     field :events
 
     list do
       scopes [:halloween, nil]
+      items_per_page 100
       field :codes_created
       field :attendees_referred
       field :females_referred
@@ -61,6 +72,7 @@ RailsAdmin.config do |config|
 
     list do
       scopes [:halloween, nil]
+      items_per_page 100
       field :user do
         formatted_value do
           bindings[:object].user.full_name
@@ -80,6 +92,7 @@ RailsAdmin.config do |config|
 
     list do
       scopes [:halloween, nil]
+      items_per_page 100
       field :name
       # field :gender do
       #   formatted_value do

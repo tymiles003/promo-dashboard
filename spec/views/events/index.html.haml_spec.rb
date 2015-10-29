@@ -7,7 +7,7 @@ RSpec.describe "events/index", type: :view do
 
     render
 
-    expect(rendered).to include("You currently have no events")
+    expect (rendered).to include("You currently have no events")
   end
 
   it 'displays the users events' do
@@ -23,6 +23,4 @@ RSpec.describe "events/index", type: :view do
     expect(rendered).to include("First Amazing Event")
     expect(rendered).to include("Second Amazing Event")
   end
-
-
 end

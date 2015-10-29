@@ -2,7 +2,7 @@
   .container
     .navbar-header
       %a.navbar-brand{href: '/'}
-        TOO BIG Promo Dashboard
+        Promo Dashboard
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         -if user_signed_in?
@@ -15,11 +15,4 @@
               = link_to('Admin', '/admin')
           %li
             = link_to('Logout', destroy_user_session_path, :method => :delete)
-.container
-  -if notice
-    %div.alert.alert-info
-      =notice
-  -if alert
-    %div.alert.alert-danger
-      =alert
-  = yield
+= render :partial => 'layouts/messages'
