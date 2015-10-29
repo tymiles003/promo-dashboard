@@ -52,8 +52,12 @@ RailsAdmin.config do |config|
     field :email
     field :admin
     field :events
-    field :attendees
-    field :access_codes
+    field :halloween_attendees
+    field :halloween_access_codes
+    
+    edit do
+      exclude_fields :halloween_attendees, :halloween_access_codes
+    end
 
     list do
       scopes [:halloween, nil]
