@@ -19,7 +19,7 @@ class AccessCode < ActiveRecord::Base
 
   validates :user_id, :code, :event_id, :eventbrite_access_code_id, presence: true
 
-  scope :halloween, -> { where('event_id' => 1) }
+  scope :current_event, -> { where('event_id' => ENV['CURRENT_EVENT_ID']) }
 
   def attendees_referred
     attendees.count

@@ -2,7 +2,7 @@ RailsAdmin.config do |config|
 
   config.model 'UserEvent' do
     list do
-      scopes [:halloween, nil]
+      scopes [:current_event, nil]
       items_per_page 100
     end
 
@@ -20,7 +20,7 @@ RailsAdmin.config do |config|
     end
 
     list do
-      scopes [:halloween, nil]
+      scopes [:current_event, nil]
     end
 
     field :title
@@ -52,8 +52,8 @@ RailsAdmin.config do |config|
     field :email
     field :admin
     field :events
-    field :halloween_attendees
-    field :halloween_access_codes
+    field :current_event_attendees
+    field :current_event_access_codes
     field :codes_created
     field :attendees_referred
     field :created_at
@@ -61,12 +61,12 @@ RailsAdmin.config do |config|
     field :last_sign_in_at
 
     edit do
-      exclude_fields :halloween_attendees, :halloween_access_codes, :codes_created, :attendees_referred
+      exclude_fields :current_event_attendees, :current_event_access_codes, :codes_created, :attendees_referred
       exclude_fields :created_at, :sign_in_count, :last_sign_in_at
     end
 
     list do
-      scopes [:halloween, nil]
+      scopes [:current_event, nil]
       items_per_page 100
     end
   end
@@ -77,7 +77,7 @@ RailsAdmin.config do |config|
     end
 
     list do
-      scopes [:halloween, nil]
+      scopes [:current_event, nil]
       items_per_page 100
       field :user do
         formatted_value do
@@ -97,7 +97,7 @@ RailsAdmin.config do |config|
     end
 
     list do
-      scopes [:halloween, nil]
+      scopes [:current_event, nil]
       items_per_page 100
       field :name
       # field :gender do

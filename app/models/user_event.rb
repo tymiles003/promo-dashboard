@@ -16,7 +16,7 @@ class UserEvent < ActiveRecord::Base
 
   validates :user_id, :event_id, :code_allowance, presence: true
 
-  scope :halloween, -> { where('event_id' => 1) }
+  scope :current_event, -> { where('event_id' => ENV['CURRENT_EVENT_ID']) }
 
   after_initialize :default_values
   def default_values
