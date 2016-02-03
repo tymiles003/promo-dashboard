@@ -35,10 +35,10 @@ class User < ActiveRecord::Base
   has_many :user_events, dependent: :destroy
   has_many :events, :through => :user_events
 
-  has_many :current_event_access_codes, -> { halloween }, :class_name => 'AccessCode'
+  has_many :current_event_access_codes, -> { current_event }, :class_name => 'AccessCode'
   has_many :current_event_attendees, -> { current_event }, :class_name => 'Attendee', :source => :attendees, :through => :access_codes
 
-  scope :current_event, -> { includes(:user_events).where('user_events.event_id' => 1) }
+  scope :current_event, -> { includes(:user_events).where('user_events.event_id' => ENV['CURRENT_EVENT_ID']) }
 
   validates :email, presence: true
 
