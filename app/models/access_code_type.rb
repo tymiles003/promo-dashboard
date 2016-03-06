@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: access_code_types
+#
+#  id                :integer          not null, primary key
+#  event_id          :integer
+#  name              :string
+#  default_allowance :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 class AccessCodeType < ActiveRecord::Base
   belongs_to :event
 

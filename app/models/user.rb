@@ -5,7 +5,7 @@
 #  id                     :integer          not null, primary key
 #  email                  :string
 #  password               :string
-#  code_allowance         :integer #TODO: deprecate
+#  code_allowance         :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  encrypted_password     :string           default(""), not null

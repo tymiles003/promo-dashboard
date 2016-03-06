@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: ticket_classes
+#
+#  id                         :integer          not null, primary key
+#  eventbrite_ticket_class_id :integer
+#  name                       :string
+#  description                :text
+#  cost                       :decimal(, )
+#  donation                   :boolean
+#  free                       :boolean
+#  sales_start                :datetime
+#  sales_end                  :datetime
+#  event_id                   :integer
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#
+
 class TicketClass < ActiveRecord::Base
   belongs_to :event
 

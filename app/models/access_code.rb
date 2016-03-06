@@ -8,7 +8,7 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  eventbrite_access_code_id :string
-#  event_id                    :integer
+#  event_id                  :integer
 #
 
 class AccessCode < ActiveRecord::Base

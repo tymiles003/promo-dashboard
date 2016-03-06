@@ -12,6 +12,8 @@
 #  eventbrite_attendee_id :string
 #  gender                 :boolean
 #  last_genderize_at      :datetime
+#  eventbrite_event_id    :string
+#  event_id               :integer
 #
 
 class Attendee < ActiveRecord::Base

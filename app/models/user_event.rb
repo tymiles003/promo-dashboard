@@ -8,7 +8,7 @@
 #  event_id       :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  code_allowance :integer
+#  code_allowance :integer          default(5), not null
 #
 
 class UserEvent < ActiveRecord::Base
