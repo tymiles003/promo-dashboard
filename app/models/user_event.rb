@@ -1,3 +1,4 @@
+#TODO: ditch this once other stuff is in place
 # == Schema Information
 #
 # Table name: user_events

@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019233537) do
+ActiveRecord::Schema.define(version: 20160306222352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_code_types", force: :cascade do |t|
+    t.integer  "event_id"
+    t.string   "name"
+    t.integer  "default_allowance"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "access_code_types", ["event_id"], name: "index_access_code_types_on_event_id", using: :btree
 
   create_table "access_codes", force: :cascade do |t|
     t.integer  "user_id"
@@ -61,6 +71,33 @@ ActiveRecord::Schema.define(version: 20151019233537) do
     t.string   "ticket_class_ids"
   end
 
+  create_table "ticket_classes", force: :cascade do |t|
+    t.integer  "eventbrite_ticket_class_id"
+    t.string   "name"
+    t.text     "description"
+    t.decimal  "cost"
+    t.boolean  "donation"
+    t.boolean  "free"
+    t.datetime "sales_start"
+    t.datetime "sales_end"
+    t.integer  "event_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "ticket_classes", ["event_id"], name: "index_ticket_classes_on_event_id", using: :btree
+
+  create_table "user_access_code_types", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "access_code_type_id"
+    t.integer  "allowance"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "user_access_code_types", ["access_code_type_id"], name: "index_user_access_code_types_on_access_code_type_id", using: :btree
+  add_index "user_access_code_types", ["user_id"], name: "index_user_access_code_types_on_user_id", using: :btree
+
   create_table "user_events", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
@@ -99,10 +136,14 @@ ActiveRecord::Schema.define(version: 20151019233537) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "access_code_types", "events"
   add_foreign_key "access_codes", "events"
   add_foreign_key "access_codes", "users"
   add_foreign_key "attendees", "access_codes"
   add_foreign_key "attendees", "events"
+  add_foreign_key "ticket_classes", "events"
+  add_foreign_key "user_access_code_types", "access_code_types"
+  add_foreign_key "user_access_code_types", "users"
   add_foreign_key "user_events", "events"
   add_foreign_key "user_events", "users"
 end

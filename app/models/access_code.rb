@@ -12,10 +12,8 @@
 #
 
 class AccessCode < ActiveRecord::Base
-
-  belongs_to :user
+  belongs_to :user_access_code_type
   has_many :attendees
-  belongs_to :event
 
   validates :user_id, :code, :event_id, :eventbrite_access_code_id, presence: true
 
