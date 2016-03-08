@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308172430) do
+ActiveRecord::Schema.define(version: 20160308190941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,11 @@ ActiveRecord::Schema.define(version: 20160308172430) do
   end
 
   add_index "access_code_types", ["event_id"], name: "index_access_code_types_on_event_id", using: :btree
+
+  create_table "access_code_types_ticket_classes", id: false, force: :cascade do |t|
+    t.integer "access_code_type_id", null: false
+    t.integer "ticket_class_id",     null: false
+  end
 
   create_table "access_codes", force: :cascade do |t|
     t.integer  "user_id"
