@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306222352) do
+ActiveRecord::Schema.define(version: 20160308055518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,11 +33,13 @@ ActiveRecord::Schema.define(version: 20160306222352) do
     t.datetime "updated_at",                null: false
     t.string   "eventbrite_access_code_id"
     t.integer  "event_id"
+    t.integer  "user_access_code_type_id"
   end
 
   add_index "access_codes", ["event_id", "code"], name: "index_access_codes_on_event_id_and_code", unique: true, using: :btree
   add_index "access_codes", ["event_id"], name: "index_access_codes_on_event_id", using: :btree
   add_index "access_codes", ["eventbrite_access_code_id"], name: "index_access_codes_on_eventbrite_access_code_id", unique: true, using: :btree
+  add_index "access_codes", ["user_access_code_type_id"], name: "index_access_codes_on_user_access_code_type_id", using: :btree
   add_index "access_codes", ["user_id"], name: "index_access_codes_on_user_id", using: :btree
 
   create_table "attendees", force: :cascade do |t|
@@ -138,6 +140,7 @@ ActiveRecord::Schema.define(version: 20160306222352) do
 
   add_foreign_key "access_code_types", "events"
   add_foreign_key "access_codes", "events"
+  add_foreign_key "access_codes", "user_access_code_types"
   add_foreign_key "access_codes", "users"
   add_foreign_key "attendees", "access_codes"
   add_foreign_key "attendees", "events"

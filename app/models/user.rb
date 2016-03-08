@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   has_many :user_access_code_types
   has_many :access_code_types, :through => :user_access_code_types
   has_many :access_codes, :through => :user_access_code_types
-  has_many :events, :through => :access_code_types
+  has_many :events, -> { distinct }, :through => :access_code_types
   has_many :attendees, :through => :access_code
 
   has_many :current_event_user_access_code_types, -> {current_event}, :class_name => 'UserAccessCodeType'

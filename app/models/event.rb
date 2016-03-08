@@ -16,9 +16,10 @@
 #
 
 class Event < ActiveRecord::Base
-  has_many :user_events
-  has_many :users, :through => :user_events
-  has_many :access_codes
+  has_many :ticket_classes
+  has_many :access_code_types
+  has_many :user_access_code_types, :through => :access_code_types
+  has_many :access_codes, :through => :user_access_code_types
 
   validates :title, :start_at, :end_at, :eventbrite_event_id, :uses_per_code, :eventbrite_url, :ticket_class_ids, presence: true
   validates_numericality_of(:uses_per_code, greater_than: 0, only_integer: true)

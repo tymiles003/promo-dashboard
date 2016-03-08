@@ -1,17 +1,16 @@
 class AccessCodesController < ApplicationController
-  before_action :require_user_event
+  before_action :require_user_access_code_types
 
   before_action :authenticate_user!
 
   # GET /access_codes
   # GET /access_codes.json
   def index
-    @code_allowance = @user_event.code_allowance
-
-    @access_codes = @event.access_codes.where(user: current_user)
+    @access_codes = AccessCode.where(user_access_code_type: @user_access_code_types)
     @access_code = AccessCode.new
   end
 
+  #TODO: update create with @user_access_code_types
   # FUTURE: set this up as ajax
   # POST /access_codes
   # POST /access_codes.json
@@ -50,13 +49,13 @@ class AccessCodesController < ApplicationController
   end
 
   private
-    def require_user_event
+    def require_user_access_code_types
       @event = Event.find params[:event_id]
 
-      @user_event = current_user.user_events.find_by(event: @event)
+      @user_access_code_types = @event.user_access_code_types
 
       # This redirect would happen if they're not associated with tjos evemt
-      unless @user_event
+      unless @user_access_code_types.present?
         flash[:alert] = "You aren't associated with that event."
         redirect_to root_path
       end

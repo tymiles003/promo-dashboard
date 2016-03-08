@@ -9,11 +9,14 @@
 #  updated_at                :datetime         not null
 #  eventbrite_access_code_id :string
 #  event_id                  :integer
+#  user_access_code_type_id  :integer
 #
 
 class AccessCode < ActiveRecord::Base
   belongs_to :user_access_code_type
   has_many :attendees
+
+  belongs_to :user
 
   validates :user_id, :code, :event_id, :eventbrite_access_code_id, presence: true
 
