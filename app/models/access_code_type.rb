@@ -8,6 +8,8 @@
 #  default_allowance :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  num_uses_per_code :integer
+#
 
 class AccessCodeType < ActiveRecord::Base
   belongs_to :event
