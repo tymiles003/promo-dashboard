@@ -1,7 +1,20 @@
 - model_class = AccessCode
 .container
-  %h1=t '.title', :default =>'Access Codes Dashboard for ' + @event.title.titleize
-  %p.description
+  %h2.title
+    Access Codes Dashboard For
+    %a{href: @event.eventbrite_url, target: '_new'}
+      = @event.title.titleize
+  .description
+    %p
+      Event will start at
+      %strong= @event.start_at.strftime("%A, %B %e %l:%M%p")
+      and end at
+      %strong
+        -if @event.start_at.day == @event.end_at.day
+          = @event.end_at.strftime("%l:%M%p")
+        -else
+          = @event.end_at.strftime("%A, %B %e at %l:%M%p")
+      \.
     =raw @event.description
   %hr
   - num_codes_created = @access_codes.length
