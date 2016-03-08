@@ -30,18 +30,20 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
-  has_many :access_codes
-  has_many :attendees, :through => :access_codes
-  has_many :user_events, dependent: :destroy
-  has_many :events, :through => :user_events
 
+  has_many :user_access_code_types
+  has_many :access_code_types, :through => :user_access_code_types
+  has_many :access_codes, :through => :user_access_code_types
+  has_many :events, :through => :access_code_types
+  has_many :attendees, :through => :access_code
+
+  has_many :current_event_user_access_code_types, -> {current_event}, :class_name => 'UserAccessCodeType'
   has_many :current_event_access_codes, -> { current_event }, :class_name => 'AccessCode'
   has_many :current_event_attendees, -> { current_event }, :class_name => 'Attendee', :source => :attendees, :through => :access_codes
 
-  scope :current_event, -> { includes(:user_events).where('user_events.event_id' => ENV['CURRENT_EVENT_ID']) }
+  scope :current_event, -> { includes(:access_code_types).where('access_code_type.event_id' => ENV['CURRENT_EVENT_ID']) }
 
   validates :email, presence: true
-
 
   def full_name
     '%s %s' % [first_name, last_name]

@@ -8,11 +8,15 @@
 #  default_allowance :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#
 
 class AccessCodeType < ActiveRecord::Base
   belongs_to :event
 
   has_and_belongs_to_many :ticket_classes
   has_and_belongs_to_many :users, :through => :user_access_code_types
+
+  after_initialize :default_values
+  def default_values
+    self.code_allowance ||= 5
+  end
 end
