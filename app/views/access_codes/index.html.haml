@@ -1,62 +1,8 @@
 - model_class = AccessCode
 .container
-  %h2.title
-    Access Codes Dashboard For
-    %a{href: @event.eventbrite_url, target: '_new'}
-      = @event.title.titleize
-  .description
-    %p
-      Event will start at
-      %strong= @event.start_at.strftime("%A, %B %e %l:%M%p")
-      and end at
-      %strong
-        -if @event.start_at.day == @event.end_at.day
-          = @event.end_at.strftime("%l:%M%p")
-        -else
-          = @event.end_at.strftime("%A, %B %e at %l:%M%p")
-      \.
-    =raw @event.description
+  = render partial: 'event_header'
   %hr
   - num_codes_created = @access_codes.length
   = render :partial => 'new', :locals => {num_codes_created: num_codes_created}
   %br
-  %table.table.table-striped.table-bordered
-    %thead
-      %tr
-        %th Access Code
-        %th Access Code Type
-        %th Invite Link
-        %th Code Created At
-        %th Attendees
-    - if num_codes_created > 0
-      %tbody
-      - codes_used = 0
-      - @access_codes.each do |access_code|
-        %tr
-          %td= access_code.code
-          %td= access_code.user_access_code_type.access_code_type.name
-          %td
-            - eventbrite_event_url = @event.eventbrite_url + '?access=' + access_code.code
-            %a{href: eventbrite_event_url, target: '_new'}
-              = eventbrite_event_url
-          %td= access_code.created_at.strftime("%D %I:%M%p")
-          %td
-            - if access_code.attendees.length > 0
-              - codes_used += 1
-              - access_code.attendees.each do |attendee|
-                = attendee.name
-                - if attendee.email.present?
-                  =' (' + attendee.email + ')'
-                = ' ordered at ' + attendee.ordered_at.strftime("%D %I:%M%p")
-                %br
-            - else
-              (No Attendees have ordered with this access code yet.)
-  %p
-  - if num_codes_created > 0
-    - percent = codes_used.to_i / num_codes_created.to_i * 100
-    %strong= codes_used
-    of you
-    %strong= @access_codes.length
-    access codes have been used to invite attendees
-  - else
-    You haven't created any access codes yet.
+  = render partial: 'access_codes_table', locals: {num_codes_created: num_codes_created}

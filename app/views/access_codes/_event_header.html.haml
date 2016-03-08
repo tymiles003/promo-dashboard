@@ -1,0 +1,21 @@
+%h2.title
+  Access Codes Dashboard For
+  %a{href: @event.eventbrite_url, target: '_new'}
+    = @event.title.titleize
+.description
+  %p
+    Event starts at
+    %strong= @event.start_at.strftime("%A, %B %e %l:%M%p")
+    and ends at
+    %strong
+      -if @event.start_at.day == @event.end_at.day
+        = @event.end_at.strftime("%l:%M%p")
+      -else
+        = @event.end_at.strftime("%A, %B %e at %l:%M%p")
+    \.
+  %h4 Ticket Types
+  = render partial: 'ticket_types'
+  - if @event.description.present?
+    %h4 Additional Info
+    = raw @event.description
+
