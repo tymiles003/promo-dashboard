@@ -21,4 +21,11 @@ class UserAccessCodeType < ActiveRecord::Base
   def event
     access_code_type.event
   end
+
+  after_initialize :default_values
+  def default_values
+    if access_code_type && access_code_type.default_allowance
+      self.allowance = access_code_type.default_allowance
+    end
+  end
 end

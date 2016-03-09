@@ -15,7 +15,7 @@ module AttendeeHelper
         Rails.logger.info 'Attendee with eventbrite ID %s for event %s already exists with ID %s, skipping' % [eventbrite_attendee_id, eventbrite_event_id, attendee.id]
       else
         code = eventbrite_attendee.promotional_code.code.downcase
-        access_code = AccessCode.find_by(event: event, code: code)
+        access_code = event.access_codes.find_by(code: code)
         if access_code
           new_attendee = Attendee.new
           new_attendee.event_id = event.id
