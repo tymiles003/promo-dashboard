@@ -29,7 +29,6 @@ RailsAdmin.config do |config|
 
   config.model 'UserAccessCodeType' do
     list do
-      scopes [:current_event, nil]
       items_per_page 100
     end
 

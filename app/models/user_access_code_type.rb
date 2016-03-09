@@ -16,7 +16,7 @@ class UserAccessCodeType < ActiveRecord::Base
 
   has_many :access_codes
 
-  scope :current_event, -> { includes(:access_code_type).where('access_code_types.event_id' => ENV['CURRENT_EVENT_ID']) }
+  validates :access_code_type, :user, presence: true
 
   def event
     access_code_type.event
