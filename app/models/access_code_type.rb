@@ -24,6 +24,7 @@ class AccessCodeType < ActiveRecord::Base
   after_initialize :default_values
   def default_values
     self.default_allowance ||= 2
+    self.num_uses_per_code ||= 1
   end
 
 end
