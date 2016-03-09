@@ -1,3 +1,4 @@
+#TODO: should be a service class, rather than helper
 module AccessCodesHelper
 
   #TODO: authorization
@@ -6,22 +7,22 @@ module AccessCodesHelper
   Returns the created Access Code upon success, otherwise raises a CreateCodeError error along the way.
   '''
   #TODO: validate access_code allowance here, since it's lowest level.
-  def self.create_and_sync_access_code(event, code, user_id)
-    #TODO: need to update foreign key constraint
-
+  def self.create_and_sync_access_code(user_access_code_type, code, user)
+    access_code_type = user_access_code_type.access_code_type
+    event = access_code_type.event
     # Begin by validating the code they sent
     validate_access_code!(event, code)
 
     eb = EventbriteAPI.new
-    access_code = eb.create_access_code(event, code)
+    access_code = eb.create_access_code(event, access_code_type, code)
 
     new_access_code = AccessCode.new
-    new_access_code.event_id = event.id
-    new_access_code.user_id = user_id
+    new_access_code.user_access_code_type = user_access_code_type
+    new_access_code.user = user
+
     new_access_code.code = access_code['code']
     new_access_code.eventbrite_access_code_id = access_code['id']
     new_access_code.save!
-
   end
 
   '''
@@ -45,8 +46,7 @@ module AccessCodesHelper
       raise Exceptions::CodeTooLongError
     end
 
-    existing_access_code = AccessCode.find_by(event: event, code: access_code)
-    if existing_access_code
+    if event.access_codes.where(code: access_code).exists?
       raise Exceptions::CodeAlreadyCreatedError
     end
   end

@@ -18,7 +18,7 @@ class AccessCode < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :user_id, :code, :event_id, :eventbrite_access_code_id, presence: true
+  validates :user_id, :code, :eventbrite_access_code_id, presence: true
 
   scope :current_event, -> { where('event_id' => ENV['CURRENT_EVENT_ID']) }
 

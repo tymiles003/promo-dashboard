@@ -1,7 +1,11 @@
 = form_for [@event, @access_code], html: { class: "form-inline access_code" } do |f|
   .form-group
     = f.text_field :code, class: 'form-control', required: true, placeholder: 'e.g. yoursecretcode'
-    = error_span(@access_code[:code])
+    -#= error_span(@access_code[:code])
+  %select.form-control{name: 'access_code[access_code_type_id]'}
+    - @user_access_code_types.each do |user_access_code_type|
+      - access_code_type = user_access_code_type.access_code_type
+      %option{value: access_code_type.id}= access_code_type.name
   = f.submit nil,class: 'btn btn-primary'
   - if flash[:error]
     .alert.alert-danger

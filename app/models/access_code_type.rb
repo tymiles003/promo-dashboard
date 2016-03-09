@@ -12,6 +12,7 @@
 #
 
 class AccessCodeType < ActiveRecord::Base
+  # having association with event helps with enforcing new ticket classes, etc.
   belongs_to :event
 
   has_many :user_access_code_types
@@ -23,5 +24,7 @@ class AccessCodeType < ActiveRecord::Base
   after_initialize :default_values
   def default_values
     self.default_allowance ||= 2
+    self.num_uses_per_code ||= 1
   end
+
 end
