@@ -15,4 +15,10 @@ class UserAccessCodeType < ActiveRecord::Base
   belongs_to :access_code_type
 
   has_many :access_codes
+
+  scope :current_event, -> { includes(:access_code_type).where('access_code_types.event_id' => ENV['CURRENT_EVENT_ID']) }
+
+  def event
+    access_code_type.event
+  end
 end

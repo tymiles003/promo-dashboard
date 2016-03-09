@@ -1,4 +1,51 @@
 RailsAdmin.config do |config|
+  config.model 'User' do
+    object_label_method do
+      :full_name
+    end
+
+    field :first_name
+    field :last_name
+    field :email
+    field :admin
+    field :events
+    field :current_event_access_codes
+    field :codes_created
+    field :attendees_referred
+    field :created_at
+    field :sign_in_count
+    field :last_sign_in_at
+
+    edit do
+      exclude_fields :current_event_access_codes, :current_event_attendees, :current_event_access_code_types, :codes_created, :attendees_referred
+      exclude_fields :created_at, :sign_in_count, :last_sign_in_at
+    end
+
+    list do
+      scopes [:current_event, nil]
+      items_per_page 100
+    end
+  end
+
+  config.model 'UserAccessCodeType' do
+    list do
+      scopes [:current_event, nil]
+      items_per_page 100
+    end
+
+    field :event do
+      formatted_value do
+        bindings[:object].event.title
+      end
+    end
+    field :user
+    field :access_code_type
+    field :allowance
+
+    edit do
+      exclude_fields :event
+    end
+  end
 
   config.model 'UserEvent' do
     list do
@@ -27,10 +74,10 @@ RailsAdmin.config do |config|
     field :description
     field :start_at
     field :end_at
-
-    field :uses_per_code
     field :eventbrite_url
     field :users
+    field :ticket_classes
+    field :access_code_types
 
     edit do
       field :eventbrite_event_id, :string do
@@ -38,37 +85,41 @@ RailsAdmin.config do |config|
           'EventBrite Event ID'
         end
       end
-      field :ticket_class_ids
     end
   end
 
-  config.model 'User' do
+  config.model 'TicketClass' do
     object_label_method do
-      :full_name
+      :name
+    end
+    field :event
+    field :name
+    field :description
+    field :cost
+    field :donation
+    field :sales_start
+    field :sales_end
+    field :eventbrite_ticket_class_id
+
+    list do
+      exclude_fields :eventbrite_ticket_class_id
     end
 
-    field :first_name
-    field :last_name
-    field :email
-    field :admin
-    field :events
-    field :current_event_attendees
-    field :current_event_access_codes
-    field :codes_created
-    field :attendees_referred
-    field :created_at
-    field :sign_in_count
-    field :last_sign_in_at
+  end
 
-    edit do
-      exclude_fields :current_event_attendees, :current_event_access_codes, :codes_created, :attendees_referred
-      exclude_fields :created_at, :sign_in_count, :last_sign_in_at
+  config.model 'AccessCodeType' do
+    object_label_method do
+      :name
     end
 
     list do
       scopes [:current_event, nil]
-      items_per_page 100
     end
+
+    field :event
+    field :name
+    field :default_allowance
+    field :ticket_classes
   end
 
   config.model 'AccessCode' do
@@ -84,10 +135,20 @@ RailsAdmin.config do |config|
           bindings[:object].user.full_name
         end
       end
+
+      field :access_code_type do
+        formatted_value do
+          bindings[:object].access_code_type.name
+        end
+      end
       field :code
       field :attendees_referred
       field :attendees
       field :created_at
+    end
+
+    edit do
+      exclude_fields :access_code_type
     end
   end
 

@@ -35,13 +35,21 @@ class User < ActiveRecord::Base
   has_many :access_code_types, :through => :user_access_code_types
   has_many :access_codes, :through => :user_access_code_types
   has_many :events, -> { distinct }, :through => :access_code_types
-  has_many :attendees, :through => :access_code
+  has_many :attendees, :through => :access_codes
 
   has_many :current_event_user_access_code_types, -> {current_event}, :class_name => 'UserAccessCodeType'
   has_many :current_event_access_codes, -> { current_event }, :class_name => 'AccessCode'
-  has_many :current_event_attendees, -> { current_event }, :class_name => 'Attendee', :source => :attendees, :through => :access_codes
+  # has_many :current_event_attendees, :class_name => 'Attendee', :source => :attendees, :through => :current_event_access_codes
 
-  scope :current_event, -> { includes(:access_code_types).where('access_code_type.event_id' => ENV['CURRENT_EVENT_ID']) }
+  scope :current_event, -> { includes(:access_code_types).where('access_code_types.event_id' => ENV['CURRENT_EVENT_ID']) }
+
+  def current_event_access_code_types
+    access_code_types.where(event_id: ENV['CURRENT_EVENT_ID']).to_a
+  end
+
+  def current_event_attendees
+    Attendee.where(access_code: current_event_access_codes).to_a
+  end
 
   validates :email, presence: true
 

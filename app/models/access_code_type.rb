@@ -18,6 +18,8 @@ class AccessCodeType < ActiveRecord::Base
   has_and_belongs_to_many :ticket_classes
   has_and_belongs_to_many :users, :through => :user_access_code_types
 
+  scope :current_event, -> { where('event_id' => ENV['CURRENT_EVENT_ID']) }
+
   after_initialize :default_values
   def default_values
     self.default_allowance ||= 2

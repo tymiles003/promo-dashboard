@@ -6,8 +6,15 @@ class AccessCodesController < ApplicationController
   # GET /access_codes
   # GET /access_codes.json
   def index
+    #TODO: determine how/what we're going to serve to get the user's ticket classes and acess_code_types
     @access_codes = AccessCode.where(user_access_code_type: @user_access_code_types)
     @access_code = AccessCode.new
+
+    # access code types available to this user.
+    @access_code_types = current_user.access_code_types.where(event: @event)
+    # only show ticket classes available to the user via their access code types
+    @ticket_classes = TicketClass.joins('INNER JOIN access_code_types_ticket_classes ON access_code_types_ticket_classes.ticket_class_id = ticket_classes.id').where('access_code_types_ticket_classes.access_code_type_id': @access_code_types).distinct.order('sales_start ASC, cost ASC')
+
   end
 
   #TODO: update create with @user_access_code_types
@@ -52,7 +59,7 @@ class AccessCodesController < ApplicationController
     def require_user_access_code_types
       @event = Event.find params[:event_id]
 
-      @user_access_code_types = @event.user_access_code_types
+      @user_access_code_types = @event.user_access_code_types.where(user: current_user)
 
       # This redirect would happen if they're not associated with tjos evemt
       unless @user_access_code_types.present?

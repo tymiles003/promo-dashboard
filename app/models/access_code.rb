@@ -22,6 +22,10 @@ class AccessCode < ActiveRecord::Base
 
   scope :current_event, -> { where('event_id' => ENV['CURRENT_EVENT_ID']) }
 
+  def access_code_type
+    user_access_code_type.access_code_type
+  end
+
   def attendees_referred
     attendees.count
   end

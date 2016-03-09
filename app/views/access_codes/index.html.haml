@@ -1,8 +1,7 @@
 - model_class = AccessCode
 .container
   = render partial: 'event_header'
-  %hr
   - num_codes_created = @access_codes.length
-  = render :partial => 'new', :locals => {num_codes_created: num_codes_created}
+  = render :partial => 'new'
   %br
   = render partial: 'access_codes_table', locals: {num_codes_created: num_codes_created}

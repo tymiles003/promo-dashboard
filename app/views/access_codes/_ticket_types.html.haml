@@ -1,0 +1,21 @@
+%table.table.table-striped.table-bordered
+  %thead
+    %th Ticket Type
+    %th Accessible Via
+    %th Cost
+    %th Sales Start
+    %th Sales End
+    %th Note
+  %tbody
+    - @ticket_classes.each do |ticket_class|
+      %tr
+        %td= ticket_class.name
+        %td= ticket_class.access_code_types.map {|a| a.name.to_s}.join(',')
+        -if ticket_class.donation
+          - cost = '$1+ donation'
+        -else
+          - cost = '$' + ticket_class.cost.to_s
+        %td= cost
+        %td= ticket_class.sales_start.strftime("%B %e")
+        %td= ticket_class.sales_end.strftime("%B %e")
+        %td= ticket_class.description
