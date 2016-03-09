@@ -22,7 +22,7 @@ RailsAdmin.config do |config|
     end
 
     list do
-      scopes [:current_event, nil]
+      # scopes [:current_event, nil]
       items_per_page 100
     end
   end
@@ -48,7 +48,7 @@ RailsAdmin.config do |config|
 
   config.model 'UserEvent' do
     list do
-      scopes [:current_event, nil]
+      # scopes [:current_event, nil]
       items_per_page 100
     end
 
@@ -66,7 +66,7 @@ RailsAdmin.config do |config|
     end
 
     list do
-      scopes [:current_event, nil]
+      # scopes [:current_event, nil]
     end
 
     field :title
@@ -112,7 +112,7 @@ RailsAdmin.config do |config|
     end
 
     list do
-      scopes [:current_event, nil]
+      # scopes [:current_event, nil]
     end
 
     field :event
@@ -127,7 +127,7 @@ RailsAdmin.config do |config|
     end
 
     list do
-      scopes [:current_event, nil]
+      # scopes [:current_event, nil]
       items_per_page 100
       field :user do
         formatted_value do
@@ -157,7 +157,7 @@ RailsAdmin.config do |config|
     end
 
     list do
-      scopes [:current_event, nil]
+      # scopes [:current_event, nil]
       items_per_page 100
       field :name
       # field :gender do

@@ -20,7 +20,7 @@ class AccessCode < ActiveRecord::Base
 
   validates :user_id, :code, :eventbrite_access_code_id, presence: true
 
-  scope :current_event, -> { where('event_id' => ENV['CURRENT_EVENT_ID']) }
+  #scope :current_event, -> { where('event_id' => ENV['CURRENT_EVENT_ID']) }
 
   def access_code_type
     user_access_code_type.access_code_type
