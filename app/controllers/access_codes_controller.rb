@@ -7,7 +7,7 @@ class AccessCodesController < ApplicationController
   # GET /access_codes.json
   def index
     #TODO: determine how/what we're going to serve to get the user's ticket classes and acess_code_types
-    @access_codes = AccessCode.where(user_access_code_type: @user_access_code_types)
+    @access_codes = AccessCode.where(user_access_code_type: @user_access_code_types).order('created_at DESC')
     @access_code = AccessCode.new
 
     # access code types available to this user.
