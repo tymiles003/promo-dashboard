@@ -23,7 +23,11 @@ class UserAccessCodeType < ActiveRecord::Base
   end
 
   def to_s
-    access_code_type.name + ' (' + user.full_name + ')'
+    if access_code_type
+      access_code_type.name + ' (' + user.full_name + ')'
+    else
+      super
+    end
   end
 
   after_initialize :default_values
