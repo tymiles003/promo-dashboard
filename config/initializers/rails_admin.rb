@@ -141,7 +141,11 @@ RailsAdmin.config do |config|
 
       field :access_code_type do
         formatted_value do
-          bindings[:object].access_code_type.name
+          if bindings[:object] && bindings[:object].has_method?(:access_code_type)
+            bindings[:object].access_code_type.name
+          else
+            'No Access Code Type!'
+          end
         end
       end
       field :code
