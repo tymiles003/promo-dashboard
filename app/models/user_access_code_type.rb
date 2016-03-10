@@ -24,7 +24,7 @@ class UserAccessCodeType < ActiveRecord::Base
 
   after_initialize :default_values
   def default_values
-    if access_code_type && access_code_type.default_allowance
+    if !self.allowance && access_code_type && access_code_type.default_allowance
       self.allowance = access_code_type.default_allowance
     end
   end

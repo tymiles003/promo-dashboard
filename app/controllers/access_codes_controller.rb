@@ -13,7 +13,7 @@ class AccessCodesController < ApplicationController
     # access code types available to this user.
     @access_code_types = current_user.access_code_types.where(event: @event)
     # only show ticket classes available to the user via their access code types
-    @ticket_classes = TicketClass.joins('INNER JOIN access_code_types_ticket_classes ON access_code_types_ticket_classes.ticket_class_id = ticket_classes.id').where('access_code_types_ticket_classes.access_code_type_id': @access_code_types).distinct.order('sales_start ASC, cost ASC')
+    @ticket_classes = TicketClass.joins('INNER JOIN access_code_types_ticket_classes ON access_code_types_ticket_classes.ticket_class_id = ticket_classes.id').where('access_code_types_ticket_classes.access_code_type_id': @access_code_types).distinct.order('cost ASC, sales_start ASC')
 
   end
 

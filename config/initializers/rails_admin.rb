@@ -99,6 +99,7 @@ RailsAdmin.config do |config|
     field :sales_start
     field :sales_end
     field :eventbrite_ticket_class_id
+    field :hide_on_dashboard
 
     list do
       exclude_fields :eventbrite_ticket_class_id
