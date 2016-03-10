@@ -66,7 +66,7 @@ class AccessCodesController < ApplicationController
     def require_user_access_code_types
       @event = Event.find params[:event_id]
 
-      @user_access_code_types = @event.user_access_code_types.where(user: current_user)
+      @user_access_code_types = @event.user_access_code_types.joins(:access_code_type => :ticket_classes).where(user: current_user).group('user_access_code_types.id').order('SUM(ticket_classes.cost) DESC')
 
       # This redirect would happen if they're not associated with tjos evemt
       unless @user_access_code_types.present?
