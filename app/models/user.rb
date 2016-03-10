@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   has_many :attendees, :through => :access_codes
 
   # has_many :current_event_user_access_code_types, -> {current_event}, :class_name => 'UserAccessCodeType'
-  has_many :current_event_access_codes, -> { current_event }, :class_name => 'AccessCode'
+  #has_many :current_event_access_codes, -> { current_event }, :class_name => 'AccessCode'
   # has_many :current_event_attendees, :class_name => 'Attendee', :source => :attendees, :through => :current_event_access_codes
 
   # scope :current_event, -> { includes(:access_code_types).where('access_code_types.event_id' => ENV['CURRENT_EVENT_ID']) }

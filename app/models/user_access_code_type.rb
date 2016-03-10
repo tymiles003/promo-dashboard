@@ -22,6 +22,10 @@ class UserAccessCodeType < ActiveRecord::Base
     access_code_type.event
   end
 
+  def to_s
+    access_code_type.name + ' (' + user.full_name + ')'
+  end
+
   after_initialize :default_values
   def default_values
     if !self.allowance && access_code_type && access_code_type.default_allowance

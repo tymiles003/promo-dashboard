@@ -9,7 +9,6 @@ RailsAdmin.config do |config|
     field :email
     field :admin
     field :events
-    field :current_event_access_codes
     field :codes_created
     field :attendees_referred
     field :created_at
@@ -30,6 +29,10 @@ RailsAdmin.config do |config|
   config.model 'UserAccessCodeType' do
     list do
       items_per_page 100
+    end
+
+    object_label_method do
+      :to_s
     end
 
     field :event do
